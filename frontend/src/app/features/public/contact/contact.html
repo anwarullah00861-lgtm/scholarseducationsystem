@@ -1,0 +1,150 @@
+<app-page-hero
+  eyebrow="Contact"
+  title="Visit or get in touch"
+  description="Find the school in Miran Shah, Khyber Pakhtunkhwa, and learn how official contact details will be published."
+/>
+
+<section class="section">
+  <div class="container contact-grid">
+    <div class="contact-card">
+      <div class="contact-card__header">
+        <span class="contact-card__icon"><app-icon name="map-pin" [size]="24" /></span>
+        <div>
+          <p class="eyebrow">School office</p>
+          <h2>Scholars Education System</h2>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-row__label">Address</span>
+        <p>{{ site.location }}</p>
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-row__label">Phone</span>
+        @if (site.contact.phone) {
+          <a [href]="'tel:' + site.contact.phone">{{ site.contact.phone }}</a>
+        } @else {
+          <p class="contact-row__pending">
+            <app-icon name="clock" [size]="14" />
+            To be published
+          </p>
+        }
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-row__label">Email</span>
+        @if (site.contact.email) {
+          <a [href]="'mailto:' + site.contact.email">{{ site.contact.email }}</a>
+        } @else {
+          <p class="contact-row__pending">
+            <app-icon name="clock" [size]="14" />
+            To be published
+          </p>
+        }
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-row__label">Office hours</span>
+        @if (site.contact.officeHours) {
+          <p>{{ site.contact.officeHours }}</p>
+        } @else {
+          <p class="contact-row__pending">
+            <app-icon name="clock" [size]="14" />
+            To be confirmed
+          </p>
+        }
+      </div>
+
+      <div class="notice notice--info contact-card__notice">
+        <app-icon name="info" [size]="19" />
+        <div>
+          <strong>Official details only</strong>
+          Phone, email, office hours and social links will appear here only after the school
+          confirms them. Online messaging is not connected yet.
+        </div>
+      </div>
+    </div>
+
+    <div class="visit-card">
+      <app-section-heading
+        eyebrow="Before you visit"
+        title="What to expect."
+        description="The website will keep this process simple and transparent as school systems come online."
+      />
+      <ol class="visit-list">
+        @for (step of visitSteps; track step.title; let index = $index) {
+          <li>
+            <span class="visit-list__number">{{ index + 1 }}</span>
+            <div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+      <a class="btn btn--primary" routerLink="/admissions">
+        Read admission information
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="location-band">
+      <div class="location-band__map" aria-hidden="true">
+        <div class="location-band__grid"></div>
+        <span class="location-band__pin"><app-icon name="map-pin" [size]="24" /></span>
+        <span class="location-band__label">Miran Shah</span>
+      </div>
+      <div class="location-band__copy">
+        <p class="eyebrow eyebrow--light">Location</p>
+        <h2>Miran Shah, Khyber Pakhtunkhwa</h2>
+        <p>
+          The school is located in Miran Shah, North Waziristan. A confirmed map pin and detailed
+          directions will be added when the school office provides them.
+        </p>
+        <div class="location-band__links">
+          <a class="btn btn--accent btn--sm" routerLink="/admissions">
+            Admissions
+            <app-icon name="arrow-right" [size]="15" />
+          </a>
+          <a class="btn btn--ghost btn--sm" routerLink="/about">About the school</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="quick-links">
+      <a class="quick-link" routerLink="/admissions">
+        <span class="quick-link__icon"><app-icon name="user-plus" [size]="21" /></span>
+        <div>
+          <h3>Admissions</h3>
+          <p>Process, form templates and what happens next.</p>
+        </div>
+        <app-icon name="arrow-up-right" [size]="18" />
+      </a>
+      <a class="quick-link" routerLink="/resources">
+        <span class="quick-link__icon"><app-icon name="library" [size]="21" /></span>
+        <div>
+          <h3>Resources</h3>
+          <p>Textbooks, syllabus and the digital library.</p>
+        </div>
+        <app-icon name="arrow-up-right" [size]="18" />
+      </a>
+      <a class="quick-link" routerLink="/media">
+        <span class="quick-link__icon"><app-icon name="play" [size]="21" /></span>
+        <div>
+          <h3>Media</h3>
+          <p>School videos and official social channels.</p>
+        </div>
+        <app-icon name="arrow-up-right" [size]="18" />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+<app-page-hero
+  eyebrow="Admissions"
+  title="Application Management"
+  description="Review and manage admission applications submitted through the online portal."
+/>
+
+<section class="section">
+  <div class="container">
+    @if (error()) {
+      <div class="error-banner" role="alert">{{ error() }}</div>
+    }
+
+    <div class="admin-toolbar">
+      <div class="toolbar-left">
+        <h2 class="toolbar-title">Admission Applications</h2>
+        <p class="toolbar-subtitle">
+          {{ total() }} application{{ total() === 1 ? '' : 's' }} on record
+        </p>
+      </div>
+
+      <div class="toolbar-right">
+        <div class="status-filter">
+          <label>Status</label>
+          <select
+            [value]="filterStatus()"
+            (change)="onStatusFilterChange($any($event.target).value)"
+          >
+            <option value="">All</option>
+            <option value="SUBMITTED">Submitted</option>
+            <option value="UNDER_REVIEW">Under Review</option>
+            <option value="ACCEPTED">Accepted</option>
+            <option value="REJECTED">Rejected</option>
+            <option value="WAITLISTED">Waitlisted</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="loading-state">
+        <app-icon name="clock" [size]="24"></app-icon>
+        <span>Loading applications…</span>
+      </div>
+    } @else if (applications().length === 0) {
+      <div class="empty-state">
+        <app-icon name="file-text" [size]="48"></app-icon>
+        <h3>No applications found</h3>
+        <p>No admission applications match the current filter.</p>
+      </div>
+    } @else {
+      <div class="applications-table-wrapper">
+        <table class="applications-table">
+          <thead>
+            <tr>
+              <th>Application ID</th>
+              <th>Student Name</th>
+              <th>Father's Name</th>
+              <th>Class</th>
+              <th>Status</th>
+              <th>Applied On</th>
+              <th class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (app of applications(); track app.id) {
+              <tr>
+                <td class="id-cell">{{ app.id.slice(0, 8) }}…</td>
+                <td>{{ app.studentFullName }}</td>
+                <td>{{ app.fatherFullName }}</td>
+                <td class="class-cell">{{ app.appliedClass }}</td>
+                <td>
+                  <span class="status-badge {{ statusBadgeClass(app.status) }}">
+                    {{ statusLabel(app.status) }}
+                  </span>
+                </td>
+                <td class="date-cell">{{ formatDate(app.createdAt) }}</td>
+                <td class="actions-cell">
+                  <button
+                    class="btn btn--outline btn--sm"
+                    (click)="onViewApplication(app.id)"
+                    title="View application"
+                  >
+                    <app-icon name="eye" [size]="16" />
+                  </button>
+                  <select
+                    class="status-select"
+                    [value]="app.status"
+                    (change)="onUpdateStatus(app, $any($event.target).value)"
+                  >
+                    <option value="SUBMITTED">Submitted</option>
+                    <option value="UNDER_REVIEW">Under Review</option>
+                    <option value="ACCEPTED">Accepted</option>
+                    <option value="REJECTED">Rejected</option>
+                    <option value="WAITLISTED">Waitlisted</option>
+                  </select>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</section>

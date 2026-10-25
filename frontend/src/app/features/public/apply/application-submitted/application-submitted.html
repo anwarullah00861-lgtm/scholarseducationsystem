@@ -1,0 +1,36 @@
+<app-page-hero
+  eyebrow="Admissions"
+  title="Application received"
+  description="Your admission application has been submitted to Scholars Education System."
+>
+</app-page-hero>
+
+<section class="section">
+  <div class="container">
+    <div class="submitted-card">
+      <span class="submitted-card__icon"><app-icon name="circle-check" [size]="28" /></span>
+
+      <h2>Thank you for applying.</h2>
+
+      <p class="submitted-card__copy">
+        The admissions office will review your application and contact you on the primary contact
+        number you provided. Keep the reference ID below for your records.
+      </p>
+
+      @if (referenceId()) {
+        <div class="reference-block">
+          <span class="reference-block__label">Application reference</span>
+          <span class="reference-block__value">{{ referenceId() }}</span>
+        </div>
+      }
+
+      <div class="submitted-card__actions">
+        <a class="btn btn--accent" routerLink="/admissions">
+          Back to admissions
+          <app-icon name="arrow-right" [size]="16" />
+        </a>
+        <a class="btn btn--outline" routerLink="/">Return to home</a>
+      </div>
+    </div>
+  </div>
+</section>

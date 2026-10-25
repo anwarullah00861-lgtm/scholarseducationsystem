@@ -1,0 +1,138 @@
+<app-page-hero
+  eyebrow="Iqbal Series"
+  title="Reading with purpose"
+  description="A dedicated section for the school's Iqbal collection — built around reflection, language and character."
+/>
+
+<section class="section">
+  <div class="container iqbal-intro">
+    <div class="iqbal-intro__copy">
+      <app-section-heading
+        eyebrow="The collection"
+        title="An invitation to think deeply."
+        description="Allama Iqbal's writing asks readers to reflect on knowledge, purpose and responsibility. Our Iqbal Series brings selected texts into school life in a way that is age-appropriate, guided and connected to the wider curriculum."
+      />
+      <div class="prose iqbal-intro__prose">
+        <p>
+          The Iqbal Series collection is being prepared carefully. Titles, editions and supporting
+          resources will be published here only after they have been confirmed by the school.
+        </p>
+        <p>
+          The school draws on the Afaq Publishers Iqbal Series, a curriculum-aligned textbook
+          programme used across Pakistan. Find the Afaq website
+          <a [href]="afaqSource" target="_blank" rel="noopener noreferrer">here</a>.
+        </p>
+      </div>
+      <a class="btn btn--outline" routerLink="/resources">
+        Explore the resource library
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+
+    <div class="iqbal-emblem">
+      <span class="iqbal-emblem__icon"><app-icon name="quote" [size]="32" /></span>
+      <p class="iqbal-emblem__eyebrow">Scholars Education System</p>
+      <h2>The Iqbal Series</h2>
+      <div class="iqbal-emblem__rule"></div>
+      <p class="iqbal-emblem__status">
+        <app-icon name="lock" [size]="15" />
+        Titles pending confirmation
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="confirmation-banner">
+      <span class="confirmation-banner__icon"><app-icon name="shield-check" [size]="24" /></span>
+      <div>
+        <p class="confirmation-banner__label">Publication standard</p>
+        <h2>No book titles will be listed until they are confirmed.</h2>
+        <p>
+          This protects families from outdated or incorrect editions. The school will confirm each
+          title, edition and class level before anything is published.
+        </p>
+      </div>
+    </div>
+
+    <div class="area-grid">
+      @for (area of areas; track area.title; let index = $index) {
+        <article class="area-card">
+          <div class="area-card__top">
+            <span class="area-card__icon"><app-icon [name]="area.icon" [size]="22" /></span>
+            <span class="area-card__number">0{{ index + 1 }}</span>
+          </div>
+          <h3>{{ area.title }}</h3>
+          <p>{{ area.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section curriculum-section">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Afaq Iqbal Series — curriculum findings"
+      title="Subjects and class levels under review"
+      description="The table below summarises publicly listed Afaq Iqbal Series textbooks. 'Confirmed' means the title is listed on the Afaq Publishers website; 'Planned' means the school intends to adopt it but has not yet confirmed."
+      align="center"
+    />
+
+    <table class="curriculum-table" aria-label="Iqbal Series curriculum by subject and class">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Classes</th>
+          <th>Status</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (entry of curriculum; track entry.subject) {
+          <tr>
+            <td>{{ entry.subject }}</td>
+            <td>{{ entry.classes }}</td>
+            <td>
+              <span
+                class="chip"
+                [class.chip--primary]="entry.status === 'confirmed'"
+                [class.chip--accent]="entry.status === 'planned'"
+              >
+                {{ entry.status }}
+              </span>
+            </td>
+            <td>{{ entry.source }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <p class="curriculum-note">
+      Source: Afaq Publishers ({{ afaqSource }}). Findings are based on publicly listed products
+      only. No copyrighted textbook content or PDFs are reproduced here. The school will confirm
+      final titles, editions and class levels before publication.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container iqbal-closing">
+    <div>
+      <p class="eyebrow">A living section</p>
+      <h2>Built to grow with the school.</h2>
+      <p>
+        The Iqbal Series is a permanent part of the website, not a one-time page. As the school
+        confirms titles and resources, authorised staff will add them through the admin dashboard.
+      </p>
+    </div>
+    <div class="iqbal-closing__actions">
+      <a class="btn btn--primary" routerLink="/contact">
+        Ask about the series
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+      <a class="btn btn--outline" routerLink="/media">See school media</a>
+    </div>
+  </div>
+</section>

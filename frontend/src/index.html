@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <title>Scholars Education System · Miran Shah</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Scholars Education System is a PG to Class 8 school in Miran Shah, Khyber Pakhtunkhwa, focused on strong foundations, character, and confident learning."
+    />
+    <meta name="theme-color" content="#0e4a3e" />
+    <meta property="og:title" content="Scholars Education System · Miran Shah" />
+    <meta
+      property="og:description"
+      content="Strong foundations. Confident futures. A PG to Class 8 school in Miran Shah, Khyber Pakhtunkhwa."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script>
+      // Apply the saved theme before the first paint to avoid a colour flash.
+      (function () {
+        try {
+          var stored = localStorage.getItem('ses.theme');
+          var preference = ['light', 'dark', 'system'].indexOf(stored) >= 0 ? stored : 'system';
+          var dark =
+            preference === 'dark' ||
+            (preference === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        } catch (error) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

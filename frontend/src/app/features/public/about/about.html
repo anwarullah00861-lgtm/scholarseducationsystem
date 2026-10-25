@@ -1,0 +1,133 @@
+<app-page-hero
+  eyebrow="Our school"
+  title="About Scholars"
+  description="A community school in Miran Shah with a clear purpose: strong foundations, thoughtful teaching and character that lasts."
+/>
+
+<section class="section">
+  <div class="container about-intro">
+    <div class="about-intro__copy">
+      <app-section-heading
+        eyebrow="Who we are"
+        title="A school built around the learner."
+        description="Scholars Education System provides a structured pathway from PG through Class 8. Each stage is designed to meet children where they are, then help them take the next step with confidence."
+      />
+      <div class="prose about-intro__prose">
+        <p>
+          We believe that a strong school is more than a building or a syllabus. It is a community
+          of adults who take responsibility for how children learn, how they treat one another and
+          how they see themselves as learners.
+        </p>
+        <p>
+          Our work is grounded in the everyday: careful explanation, guided practice, useful
+          feedback and the encouragement to try again. Those habits create the confidence that
+          carries a student well beyond their school years.
+        </p>
+      </div>
+    </div>
+
+    <aside class="fact-card" aria-labelledby="fact-card-title">
+      <div class="fact-card__top">
+        <span class="fact-card__icon"><app-icon name="school" [size]="22" /></span>
+        <span class="chip chip--accent">At a glance</span>
+      </div>
+      <h2 id="fact-card-title">The essentials</h2>
+      <dl class="fact-card__list">
+        @for (fact of facts; track fact.label) {
+          <div>
+            <dt>{{ fact.label }}</dt>
+            <dd>{{ fact.value }}</dd>
+          </div>
+        }
+      </dl>
+      <a class="link-arrow" routerLink="/admissions">
+        Admission information
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Our commitments"
+      title="What we work on every day."
+      description="These commitments shape the school's decisions, from how a lesson is taught to how a concern is handled."
+      align="center"
+    />
+
+    <div class="commitment-grid">
+      @for (commitment of commitments; track commitment.title; let index = $index) {
+        <article class="commitment-card">
+          <div class="commitment-card__top">
+            <span class="commitment-card__icon">
+              <app-icon [name]="commitment.icon" [size]="21" />
+            </span>
+            <span class="commitment-card__number">0{{ index + 1 }}</span>
+          </div>
+          <h3>{{ commitment.title }}</h3>
+          <p>{{ commitment.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container mission-grid">
+    <article class="mission-card">
+      <span class="mission-card__icon"><app-icon name="graduation-cap" [size]="24" /></span>
+      <p class="eyebrow">Our mission</p>
+      <h2>Strong foundations for a changing world.</h2>
+      <p>
+        To provide a rigorous, caring education from PG to Class 8 that equips students with the
+        knowledge, habits and character to keep learning.
+      </p>
+    </article>
+
+    <article class="mission-card mission-card--accent">
+      <span class="mission-card__icon"><app-icon name="globe" [size]="24" /></span>
+      <p class="eyebrow">Our vision</p>
+      <h2>A community of confident, responsible learners.</h2>
+      <p>
+        A school where children are known, challenged and supported — and where families can see the
+        difference that purposeful education makes.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="community-band">
+      <div>
+        <p class="eyebrow eyebrow--light">Rooted in Miran Shah</p>
+        <h2>Local roots. High expectations.</h2>
+        <p>
+          Our school belongs to the community it serves. That means listening to families, keeping
+          communication clear and making sure the education we offer is relevant, respectful and
+          ambitious.
+        </p>
+      </div>
+      <div class="community-band__actions">
+        <a class="btn btn--accent" routerLink="/contact">
+          Contact the school
+          <app-icon name="arrow-right" [size]="17" />
+        </a>
+        @if (site.whatsappGroupUrl) {
+          <a
+            class="btn btn--ghost"
+            [href]="site.whatsappGroupUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <app-icon name="message-circle" [size]="17" />
+            Join Our WhatsApp Group
+          </a>
+        }
+        <a class="btn btn--ghost" routerLink="/academics">Explore academics</a>
+      </div>
+    </div>
+  </div>
+</section>

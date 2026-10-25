@@ -1,0 +1,218 @@
+.admin-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.toolbar-title {
+  margin: 0;
+  font-size: var(--ses-text-xl);
+  font-weight: 750;
+  color: var(--ses-heading);
+}
+
+.toolbar-subtitle {
+  margin: 0;
+  color: var(--ses-muted);
+  font-size: var(--ses-text-sm);
+}
+
+.toolbar-right {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  align-items: center;
+}
+
+.status-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.status-filter label {
+  font-size: var(--ses-text-xs);
+  font-weight: 700;
+  color: var(--ses-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-filter select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-sm);
+  background: var(--ses-surface);
+  font-family: var(--ses-font-sans);
+  font-size: var(--ses-text-sm);
+  color: var(--ses-text);
+}
+
+.error-banner {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ses-danger);
+  border-radius: var(--ses-radius-md);
+  background: rgba(163, 58, 58, 0.1);
+  color: var(--ses-danger);
+  font-size: var(--ses-text-sm);
+  margin-bottom: 1rem;
+}
+
+.loading-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  color: var(--ses-muted);
+}
+
+.loading-state app-icon,
+.empty-state app-icon {
+  margin-bottom: 1rem;
+}
+
+.loading-state span,
+.empty-state h3 {
+  font-size: var(--ses-text-lg);
+  font-weight: 700;
+  color: var(--ses-heading);
+}
+
+.empty-state p {
+  margin-top: 0.5rem;
+  font-size: var(--ses-text-sm);
+}
+
+.applications-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-md);
+  background: var(--ses-surface);
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--ses-text-sm);
+}
+
+.applications-table th {
+  text-align: left;
+  padding: 0.9rem 1rem;
+  border-bottom: 2px solid var(--ses-border-strong);
+  background: var(--ses-surface-2);
+  color: var(--ses-muted);
+  font-size: var(--ses-text-xs);
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.applications-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--ses-border);
+  color: var(--ses-text);
+}
+
+.applications-table tr:last-child td {
+  border-bottom: none;
+}
+
+.applications-table tr:hover {
+  background: var(--ses-accent-soft);
+}
+
+.id-cell {
+  font-family: var(--ses-font-display);
+  font-size: var(--ses-text-xs);
+  color: var(--ses-muted);
+}
+
+.class-cell {
+  font-weight: 600;
+  color: var(--ses-primary);
+}
+
+.date-cell {
+  color: var(--ses-muted);
+  font-size: var(--ses-text-xs);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--ses-radius-full);
+  font-size: var(--ses-text-xs);
+  font-weight: 700;
+}
+
+.badge-submitted {
+  background: rgba(14, 74, 62, 0.1);
+  color: var(--ses-primary);
+}
+
+.badge-review {
+  background: rgba(184, 134, 27, 0.1);
+  color: var(--ses-accent-strong);
+}
+
+.badge-accepted {
+  background: rgba(31, 122, 91, 0.1);
+  color: var(--ses-success);
+}
+
+.badge-rejected {
+  background: rgba(163, 58, 58, 0.1);
+  color: var(--ses-danger);
+}
+
+.badge-waitlisted {
+  background: rgba(102, 196, 163, 0.1);
+  color: var(--ses-primary-strong);
+}
+
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.status-select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-sm);
+  background: var(--ses-bg);
+  font-family: var(--ses-font-sans);
+  font-size: var(--ses-text-xs);
+  color: var(--ses-text);
+}
+
+@media (max-width: 48rem) {
+  .admin-toolbar {
+    gap: 1rem;
+  }
+
+  .toolbar-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .status-filter {
+    align-items: stretch;
+  }
+
+  .status-filter select {
+    width: 100%;
+  }
+}

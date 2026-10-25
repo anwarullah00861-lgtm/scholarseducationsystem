@@ -1,0 +1,49 @@
+<div class="admin-login">
+  <section class="admin-login__card">
+    <p class="eyebrow">Scholars Admin</p>
+    <h1>Sign in</h1>
+    <p class="admin-login__lead">
+      Administrators and staff use this page to access the protected workspace.
+    </p>
+
+    @if (errorMessage()) {
+      <div class="admin-login__error" role="alert">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form #loginForm="ngForm" (ngSubmit)="submit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Email address</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          autocomplete="username"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          minlength="6"
+          autocomplete="current-password"
+        />
+      </mat-form-field>
+
+      <button class="btn btn--primary" type="submit" [disabled]="loginForm.invalid || submitting()">
+        {{ submitting() ? 'Signing in…' : 'Sign in' }}
+        <app-icon name="arrow-right" [size]="16" />
+      </button>
+    </form>
+
+    <a class="admin-login__back" routerLink="/">Back to the school website</a>
+  </section>
+</div>

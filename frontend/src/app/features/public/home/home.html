@@ -1,0 +1,247 @@
+<section class="hero">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="hero__pattern" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow eyebrow--light">Miran Shah · Khyber Pakhtunkhwa</p>
+      <h1>
+        Strong foundations.<br />
+        <span>Confident futures.</span>
+      </h1>
+      <p class="hero__lead">
+        A PG to Class 8 school where careful teaching, strong foundations and character come
+        together — so every learner can move forward with confidence.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--accent btn--lg" routerLink="/admissions">
+          Admission information
+          <app-icon name="arrow-right" [size]="18" />
+        </a>
+        <a class="btn btn--ghost btn--lg" routerLink="/academics">Explore academics</a>
+      </div>
+
+      <ul class="hero__flags" aria-label="School highlights">
+        <li><app-icon name="circle-check" [size]="17" /> PG to Class 8</li>
+        <li><app-icon name="circle-check" [size]="17" /> Midterm &amp; Final</li>
+        <li><app-icon name="circle-check" [size]="17" /> Iqbal Series</li>
+      </ul>
+    </div>
+
+    <div class="hero__visual">
+      <div class="hero__ring" aria-hidden="true"></div>
+      <div class="crest-panel">
+        <app-logo variant="light" size="xl" />
+        <div class="crest-panel__rule" aria-hidden="true"></div>
+        <p class="crest-panel__name">Scholars Education System</p>
+        <p class="crest-panel__place">Miran Shah, Khyber Pakhtunkhwa</p>
+        <div class="crest-panel__motto">
+          <span>Learn</span>
+          <span aria-hidden="true">·</span>
+          <span>Grow</span>
+          <span aria-hidden="true">·</span>
+          <span>Serve</span>
+        </div>
+      </div>
+
+      <div class="float-card float-card--levels">
+        <span class="float-card__label">Learning pathways</span>
+        <strong>11</strong>
+        <span class="float-card__note">class levels from PG to Class 8</span>
+      </div>
+
+      <div class="float-card float-card--assessment">
+        <span class="float-card__icon"><app-icon name="calendar-days" [size]="19" /></span>
+        <div>
+          <strong>Midterm + Final</strong>
+          <span class="float-card__note">assessment terms</span>
+        </div>
+      </div>
+
+      <div class="float-card float-card--iqbal">
+        <span class="float-card__icon"><app-icon name="quote" [size]="19" /></span>
+        <div>
+          <strong>Iqbal Series</strong>
+          <span class="float-card__note">reading with purpose</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <nav class="pathway-strip" aria-label="Learning pathways">
+      @for (pathway of pathways; track pathway.label) {
+        <a [routerLink]="pathway.path">
+          <span class="pathway-strip__label">{{ pathway.label }}</span>
+          <span class="pathway-strip__detail">{{ pathway.detail }}</span>
+          <app-icon name="arrow-up-right" [size]="16" />
+        </a>
+      }
+    </nav>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container welcome">
+    <div class="welcome__copy">
+      <app-section-heading
+        eyebrow="Welcome to Scholars"
+        title="A place to belong. A foundation to build on."
+        description="Scholars Education System serves families in Miran Shah with a clear, structured pathway from the earliest years through Class 8. We believe good education is both ambitious and personal: high expectations, delivered with care."
+      />
+      <div class="prose welcome__prose">
+        <p>
+          Our approach brings together strong classroom foundations, a culture of responsibility and
+          a genuine partnership with parents. Learning is organised around the needs of each stage,
+          with assessment that helps students understand how to improve.
+        </p>
+      </div>
+      <a class="link-arrow" routerLink="/about">
+        More about the school
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+
+    <div class="promise-card">
+      <div class="promise-card__header">
+        <span class="promise-card__icon"><app-icon name="shield-check" [size]="21" /></span>
+        <div>
+          <p class="promise-card__eyebrow">Our promise</p>
+          <h2>What families can expect</h2>
+        </div>
+      </div>
+      <ul class="promise-card__list">
+        @for (item of promise; track item) {
+          <li>
+            <app-icon name="circle-check" [size]="18" />
+            <span>{{ item }}</span>
+          </li>
+        }
+      </ul>
+      <a class="btn btn--outline btn--sm" routerLink="/admissions">
+        Start with admissions
+        <app-icon name="arrow-right" [size]="15" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-top">
+      <app-section-heading
+        eyebrow="What guides us"
+        title="Small things, done consistently."
+        description="The school experience is shaped by everyday habits: how we teach, how we speak to one another and how we keep families informed."
+      />
+    </div>
+
+    <div class="values-grid">
+      @for (value of values; track value.title; let index = $index) {
+        <article class="value-card">
+          <div class="value-card__top">
+            <span class="value-card__icon"><app-icon [name]="value.icon" [size]="21" /></span>
+            <span class="value-card__number">0{{ index + 1 }}</span>
+          </div>
+          <h3>{{ value.title }}</h3>
+          <p>{{ value.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-top section-top--split">
+      <app-section-heading
+        eyebrow="Learning pathways"
+        title="From first steps to Class 8."
+        description="Each stage has its own rhythm, with a shared commitment to strong foundations and growing independence."
+      />
+      <a class="link-arrow" routerLink="/academics">
+        View all academics
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+
+    <div class="programmes">
+      @for (programme of programmes; track programme.title) {
+        <a class="programme-card" [routerLink]="programme.path">
+          <span class="programme-card__icon"><app-icon [name]="programme.icon" [size]="24" /></span>
+          <span class="programme-card__eyebrow">{{ programme.eyebrow }}</span>
+          <h3>{{ programme.title }}</h3>
+          <p>{{ programme.description }}</p>
+          <span class="programme-card__link">
+            Explore this stage
+            <app-icon name="arrow-right" [size]="16" />
+          </span>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight beyond">
+  <div class="container">
+    <div class="section-top section-top--split">
+      <app-section-heading
+        eyebrow="Beyond the classroom"
+        title="More ways to read, explore and stay connected."
+      />
+      <a class="link-arrow" routerLink="/resources">
+        Visit the resource hub
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+
+    <div class="feature-grid">
+      @for (feature of features; track feature.title) {
+        <article class="feature-card">
+          <span class="feature-card__icon"><app-icon [name]="feature.icon" [size]="22" /></span>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+          <a class="link-arrow" [routerLink]="feature.path">
+            {{ feature.linkLabel }}
+            <app-icon name="arrow-right" [size]="15" />
+          </a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section cta-section">
+  <div class="container">
+    <div class="cta-band">
+      <div class="cta-band__pattern" aria-hidden="true"></div>
+      <div class="cta-band__copy">
+        <p class="eyebrow eyebrow--light">Admissions</p>
+        <h2>Let’s talk about your child’s next step.</h2>
+        <p>
+          Learn how admission enquiries are handled, what to prepare, and how the school will
+          publish its online forms.
+        </p>
+      </div>
+      <div class="cta-band__actions">
+        <a class="btn btn--accent" routerLink="/admissions">
+          Admission information
+          <app-icon name="arrow-right" [size]="17" />
+        </a>
+        @if (site.whatsappGroupUrl) {
+          <a
+            class="btn btn--ghost"
+            [href]="site.whatsappGroupUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <app-icon name="message-circle" [size]="17" />
+            Join Our WhatsApp Group
+          </a>
+        }
+        <a class="btn btn--ghost" routerLink="/contact">Contact the school</a>
+      </div>
+    </div>
+  </div>
+</section>

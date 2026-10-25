@@ -1,0 +1,120 @@
+// Design tokens for Scholars Education System.
+// Light is the default palette; the dark palette is applied by ThemeService
+// using the `data-theme` attribute on <html>.
+
+:root {
+  // Brand
+  --ses-primary: #0e4a3e;
+  --ses-primary-strong: #08362d;
+  --ses-primary-soft: #e4efe9;
+  --ses-primary-contrast: #f8fbf8;
+  --ses-accent: #b8861b;
+  --ses-accent-strong: #966a0d;
+  --ses-accent-soft: #f7edd4;
+  --ses-accent-contrast: #241a03;
+
+  // Surfaces and text
+  --ses-bg: #f7f4ec;
+  --ses-surface: #fffdf8;
+  --ses-surface-2: #f0ebdf;
+  --ses-surface-3: #e7e0d1;
+  --ses-surface-inverse: #082b24;
+  --ses-heading: #102a23;
+  --ses-text: #1b2824;
+  --ses-muted: #5d6b65;
+  --ses-border: #ded6c6;
+  --ses-border-strong: #c8bda8;
+  --ses-link: #0d5c4b;
+  --ses-success: #1f7a5b;
+  --ses-warning: #9a6a11;
+  --ses-danger: #a33a3a;
+
+  // Hero / footer (kept dark in both themes for strong contrast)
+  --ses-deep: #072e26;
+  --ses-deep-2: #0a3a30;
+  --ses-deep-text: #f3f7f2;
+  --ses-deep-muted: #b9cec4;
+  --ses-deep-border: rgba(255, 255, 255, 0.14);
+
+  // Typography
+  --ses-font-sans: 'Manrope Variable', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ses-font-display: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+
+  --ses-text-xs: 0.75rem;
+  --ses-text-sm: 0.875rem;
+  --ses-text-base: 1rem;
+  --ses-text-lg: 1.125rem;
+  --ses-text-xl: clamp(1.25rem, 0.7vw + 1.05rem, 1.5rem);
+  --ses-text-2xl: clamp(1.55rem, 1.4vw + 1.1rem, 2.1rem);
+  --ses-text-3xl: clamp(2rem, 2.8vw + 1.1rem, 3.1rem);
+  --ses-text-4xl: clamp(2.5rem, 5vw + 1rem, 4.6rem);
+
+  // Spacing
+  --ses-space-1: 0.25rem;
+  --ses-space-2: 0.5rem;
+  --ses-space-3: 0.75rem;
+  --ses-space-4: 1rem;
+  --ses-space-5: 1.25rem;
+  --ses-space-6: 1.5rem;
+  --ses-space-8: 2rem;
+  --ses-space-10: 2.5rem;
+  --ses-space-12: 3rem;
+  --ses-space-16: 4rem;
+  --ses-space-20: 5rem;
+  --ses-space-24: 6rem;
+
+  // Shape, elevation and motion
+  --ses-radius-sm: 0.5rem;
+  --ses-radius-md: 0.875rem;
+  --ses-radius-lg: 1.25rem;
+  --ses-radius-xl: 1.75rem;
+  --ses-radius-full: 999px;
+  --ses-shadow-sm: 0 1px 2px rgba(16, 42, 35, 0.06), 0 4px 16px rgba(16, 42, 35, 0.04);
+  --ses-shadow-md: 0 12px 35px rgba(16, 42, 35, 0.1);
+  --ses-shadow-lg: 0 28px 70px rgba(7, 46, 38, 0.18);
+  --ses-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ses-duration: 220ms;
+
+  // Layout
+  --ses-container: 1200px;
+  --ses-container-narrow: 780px;
+  --ses-header-height: 5rem;
+  --ses-topbar-height: 2.25rem;
+  --ses-admin-sidebar: 17.5rem;
+}
+
+html[data-theme='dark'] {
+  --ses-primary: #347f68;
+  --ses-primary-strong: #47a084;
+  --ses-primary-soft: #16382f;
+  --ses-primary-contrast: #f2faf6;
+  --ses-accent: #e0b958;
+  --ses-accent-strong: #f0cd77;
+  --ses-accent-soft: #322a16;
+  --ses-accent-contrast: #1d1503;
+
+  --ses-bg: #081310;
+  --ses-surface: #0f1d19;
+  --ses-surface-2: #14251f;
+  --ses-surface-3: #1b3029;
+  --ses-surface-inverse: #e8f2ed;
+  --ses-heading: #f3f8f5;
+  --ses-text: #e5ede9;
+  --ses-muted: #a2b5ad;
+  --ses-border: #263c34;
+  --ses-border-strong: #345248;
+  --ses-link: #7cd8ba;
+  --ses-success: #64c7a2;
+  --ses-warning: #e0b958;
+  --ses-danger: #ef8d8d;
+
+  --ses-deep: #061712;
+  --ses-deep-2: #0a211b;
+  --ses-deep-text: #f3f7f2;
+  --ses-deep-muted: #a9c1b7;
+  --ses-deep-border: rgba(255, 255, 255, 0.12);
+
+  --ses-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.32), 0 6px 18px rgba(0, 0, 0, 0.22);
+  --ses-shadow-md: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --ses-shadow-lg: 0 32px 80px rgba(0, 0, 0, 0.48);
+}

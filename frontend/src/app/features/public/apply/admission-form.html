@@ -1,0 +1,336 @@
+<app-page-hero
+  eyebrow="Admissions"
+  title="Online Admission Application"
+  description="Apply for admission to PG, Nursery, Prep or Classes 1–8. All fields marked * are required."
+/>
+
+<section class="section">
+  <div class="container">
+    @if (submitted()) {
+      <div class="success-banner">
+        <span class="success-banner__icon"><app-icon name="circle-check" [size]="24" /></span>
+        <div class="success-banner__copy">
+          <h2>Application Submitted Successfully</h2>
+          <p>
+            Thank you for applying to Scholars Education System. Our admissions office will review
+            your application and contact you with the next steps.
+          </p>
+        </div>
+        <a class="btn btn--outline" routerLink="/">Return to Home</a>
+      </div>
+    } @else {
+      <div class="apply-wrapper">
+        <div class="apply-form-card">
+          @if (error()) {
+            <div class="form-error" role="alert">{{ error() }}</div>
+          }
+
+          <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-section">
+              <h2 class="section-title">Application Type</h2>
+              <div class="template-select">
+                @for (tpl of templateOptions; track tpl.value) {
+                  <label
+                    class="template-option"
+                    [class.selected]="form.get('template')?.value === tpl.value"
+                  >
+                    <input
+                      type="radio"
+                      name="template"
+                      formControlName="template"
+                      [value]="tpl.value"
+                    />
+                    <span class="template-option__label">{{ tpl.label }}</span>
+                    <span class="template-option__desc">{{ tpl.description }}</span>
+                  </label>
+                }
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Student Information</h2>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Applied Class <span class="required">*</span></label>
+                  <select formControlName="appliedClass">
+                    <option value="">Select class</option>
+                    @for (cls of classOptions; track cls.value) {
+                      <option [value]="cls.value">{{ cls.label }}</option>
+                    }
+                  </select>
+                  @if (isFieldInvalid('appliedClass')) {
+                    <span class="field-error">{{ getFieldError('appliedClass') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Student's Full Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="studentFullName"
+                    placeholder="e.g. Fatima Ali"
+                  />
+                  @if (isFieldInvalid('studentFullName')) {
+                    <span class="field-error">{{ getFieldError('studentFullName') }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Father / Guardian Information</h2>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Father's Full Name <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="fatherFullName"
+                    placeholder="e.g. Muhammad Ali"
+                  />
+                  @if (isFieldInvalid('fatherFullName')) {
+                    <span class="field-error">{{ getFieldError('fatherFullName') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Father's CNIC <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="fatherCNIC"
+                    placeholder="e.g. 12345-1234567-1"
+                  />
+                  @if (isFieldInvalid('fatherCNIC')) {
+                    <span class="field-error">{{ getFieldError('fatherCNIC') }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Personal Details</h2>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Date of Birth <span class="required">*</span></label>
+                  <input type="date" formControlName="dateOfBirth" />
+                  @if (isFieldInvalid('dateOfBirth')) {
+                    <span class="field-error">{{ getFieldError('dateOfBirth') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Date of Birth in Words <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="dateOfBirthInWords"
+                    placeholder="e.g. Fifteenth of August, Two Thousand Ten"
+                  />
+                  @if (isFieldInvalid('dateOfBirthInWords')) {
+                    <span class="field-error">{{ getFieldError('dateOfBirthInWords') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Gender <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-label">
+                      <input type="radio" formControlName="gender" value="MALE" /> Male
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" formControlName="gender" value="FEMALE" /> Female
+                    </label>
+                    <label class="radio-label">
+                      <input type="radio" formControlName="gender" value="OTHER" /> Other
+                    </label>
+                  </div>
+                  @if (isFieldInvalid('gender')) {
+                    <span class="field-error">{{ getFieldError('gender') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Father's Occupation <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="fatherOccupation"
+                    placeholder="e.g. Teacher"
+                  />
+                  @if (isFieldInvalid('fatherOccupation')) {
+                    <span class="field-error">{{ getFieldError('fatherOccupation') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Domicile <span class="required">*</span></label>
+                  <input
+                    type="text"
+                    formControlName="domicile"
+                    placeholder="e.g. North Waziristan"
+                  />
+                  @if (isFieldInvalid('domicile')) {
+                    <span class="field-error">{{ getFieldError('domicile') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Nationality <span class="required">*</span></label>
+                  <input type="text" formControlName="nationality" placeholder="e.g. Pakistani" />
+                  @if (isFieldInvalid('nationality')) {
+                    <span class="field-error">{{ getFieldError('nationality') }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Contact & Address</h2>
+              <div class="form-grid">
+                <div class="form-field full-width">
+                  <label>Residential Address <span class="required">*</span></label>
+                  <textarea
+                    formControlName="residentialAddress"
+                    rows="3"
+                    placeholder="House No, Street, Village, Tehsil, District"
+                  ></textarea>
+                  @if (isFieldInvalid('residentialAddress')) {
+                    <span class="field-error">{{ getFieldError('residentialAddress') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Primary Contact Number <span class="required">*</span></label>
+                  <input
+                    type="tel"
+                    formControlName="primaryContact"
+                    placeholder="e.g. 0333-1234567"
+                  />
+                  @if (isFieldInvalid('primaryContact')) {
+                    <span class="field-error">{{ getFieldError('primaryContact') }}</span>
+                  }
+                </div>
+
+                <div class="form-field">
+                  <label>Alternate Contact Number</label>
+                  <input type="tel" formControlName="alternateContact" placeholder="Optional" />
+                  @if (isFieldInvalid('alternateContact')) {
+                    <span class="field-error">{{ getFieldError('alternateContact') }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Previous School Information</h2>
+              <p class="section-hint">Optional — only if the student has attended school before.</p>
+              <div class="form-grid">
+                <div class="form-field">
+                  <label>Previous Class</label>
+                  <input type="text" formControlName="previousClass" placeholder="e.g. Class 3" />
+                </div>
+
+                <div class="form-field">
+                  <label>Previous School Name</label>
+                  <input
+                    type="text"
+                    formControlName="previousSchoolName"
+                    placeholder="e.g. ABC Public School"
+                  />
+                </div>
+
+                <div class="form-field">
+                  <label>Leaving Date</label>
+                  <input type="date" formControlName="leavingDate" />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2 class="section-title">Document Uploads</h2>
+              <div class="upload-grid">
+                <div class="upload-field">
+                  <label>Passport-size Photo <span class="required">*</span></label>
+                  <input type="file" accept="image/*" (change)="onFileChange($event, 'photo')" />
+                  @if (isFieldInvalid('photo')) {
+                    <span class="field-error">Passport-size photo is required.</span>
+                  }
+                </div>
+
+                <div class="upload-field">
+                  <label>Father's CNIC Copy</label>
+                  <input
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onFileChange($event, 'cnicCopy')"
+                  />
+                </div>
+
+                <div class="upload-field">
+                  <label>Domicile Copy</label>
+                  <input
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onFileChange($event, 'domicileCopy')"
+                  />
+                </div>
+
+                <div class="upload-field">
+                  <label>School Leaving Certificate</label>
+                  <input
+                    type="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    (change)="onFileChange($event, 'schoolLeavingCert')"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section consent-section">
+              <label class="consent-label">
+                <input type="checkbox" formControlName="consent" />
+                <span
+                  >I confirm that the information provided is true and accurate to the best of my
+                  knowledge. I understand that submitting false information may result in rejection
+                  of the application.</span
+                >
+              </label>
+              @if (isFieldInvalid('consent')) {
+                <span class="field-error">You must consent to proceed.</span>
+              }
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" [disabled]="submitting()" class="btn btn--accent btn--lg">
+                @if (submitting()) {
+                  <span>Submitting…</span>
+                } @else {
+                  <span>Submit Application</span>
+                }
+              </button>
+            </div>
+          </form>
+        </div>
+
+        @if (site.whatsappGroupUrl) {
+          <aside class="help-cta">
+            <span class="help-cta__icon"><app-icon name="message-circle" [size]="20" /></span>
+            <div class="help-cta__copy">
+              <h3>Need help with the form?</h3>
+              <p>
+                Join the school’s WhatsApp group for admission guidance, deadlines and updates from
+                the school office.
+              </p>
+            </div>
+            <a
+              class="btn btn--accent"
+              [href]="site.whatsappGroupUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <app-icon name="message-circle" [size]="16" />
+              Join WhatsApp group
+            </a>
+          </aside>
+        }
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,124 @@
+<app-page-hero
+  eyebrow="Media"
+  title="School videos & channels"
+  description="A managed place for school life, events and official updates — without scattered or unverified links."
+/>
+
+<section class="section">
+  <div class="container media-feature">
+    <div class="video-stage">
+      <div class="video-stage__pattern" aria-hidden="true"></div>
+      <span class="chip chip--light">Video gallery</span>
+      <div class="video-stage__play" aria-hidden="true">
+        <app-icon name="play" [size]="28" />
+      </div>
+      <div class="video-stage__footer">
+        <span>School videos will appear here</span>
+        <span class="video-stage__status">
+          <app-icon name="clock" [size]="14" />
+          Preparing
+        </span>
+      </div>
+    </div>
+
+    <div class="media-feature__copy">
+      <app-section-heading
+        eyebrow="The video library"
+        title="Watch school life, when it is ready."
+        description="Administrators will be able to publish videos from YouTube or Facebook, organise them by topic and feature the most important updates on the home page."
+      />
+      <div class="notice">
+        <app-icon name="info" [size]="19" />
+        <div>
+          <strong>No videos published yet</strong>
+          This is a layout preview. No embedded video, fake thumbnail or external channel link has
+          been added.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <div class="channels-header">
+      <app-section-heading
+        eyebrow="Official channels"
+        title="One place for verified links."
+        description="Social links will be stored in the admin dashboard and rendered across the website only when they are configured."
+      />
+      @if (site.socialLinks.length === 0) {
+        <span class="chip chip--accent">Awaiting links</span>
+      }
+    </div>
+
+    <div class="channel-grid">
+      @for (channel of channels; track channel.name) {
+        <article class="channel-card">
+          <span class="channel-card__icon"><app-icon [name]="channel.icon" [size]="22" /></span>
+          <h3>{{ channel.name }}</h3>
+          <p>{{ channel.description }}</p>
+          <span class="channel-card__status">
+            <app-icon name="lock" [size]="14" />
+            Link not configured
+          </span>
+        </article>
+      }
+    </div>
+
+    @if (site.socialLinks.length > 0) {
+      <div class="social-row">
+        @for (social of site.socialLinks; track social.href) {
+          <a
+            class="btn btn--outline btn--sm"
+            [href]="social.href"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ social.label }}
+            <app-icon name="external-link" [size]="15" />
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+<section class="section">
+  <div class="container media-bottom">
+    <div>
+      <app-section-heading
+        eyebrow="Coming to the gallery"
+        title="Built for useful updates, not noise."
+        description="The media section is designed to stay small, current and relevant to families."
+      />
+    </div>
+    <ul class="upcoming-list">
+      @for (item of upcoming; track item) {
+        <li>
+          <span><app-icon name="circle-check" [size]="16" /></span>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="media-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Stay connected</p>
+        <h2>Official links will always come from the school.</h2>
+        <p>
+          This page will only display channels confirmed by the school office. Families should treat
+          unverified links with caution.
+        </p>
+      </div>
+      <a class="btn btn--accent" routerLink="/contact">
+        Contact the school
+        <app-icon name="arrow-right" [size]="17" />
+      </a>
+    </div>
+  </div>
+</section>

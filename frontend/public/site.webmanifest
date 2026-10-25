@@ -1,0 +1,17 @@
+{
+  "name": "Scholars Education System",
+  "short_name": "Scholars",
+  "description": "A PG to Class 8 school in Miran Shah, Khyber Pakhtunkhwa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7f4ec",
+  "theme_color": "#0e4a3e",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

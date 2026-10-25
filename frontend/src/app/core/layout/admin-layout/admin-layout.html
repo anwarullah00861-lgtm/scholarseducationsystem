@@ -1,0 +1,118 @@
+<mat-sidenav-container class="admin-shell">
+  <mat-sidenav
+    #drawer
+    class="admin-drawer"
+    [mode]="compactViewport() ? 'over' : 'side'"
+    [opened]="sidenavOpened()"
+    (openedChange)="sidenavOpened.set($event)"
+  >
+    <div class="admin-brand">
+      <app-logo variant="light" link="/admin" />
+      <span class="admin-brand__tag">Admin workspace</span>
+    </div>
+
+    <nav class="admin-nav" aria-label="Administrator navigation">
+      @for (group of navGroups; track group.label) {
+        <div class="admin-nav__group">
+          <p class="admin-nav__label">{{ group.label }}</p>
+          @for (item of group.items; track item.path) {
+            <a
+              [routerLink]="item.path"
+              routerLinkActive="is-active"
+              [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+              (click)="closeOnMobile()"
+            >
+              <span class="admin-nav__icon"
+                ><app-icon [name]="item.icon ?? 'layout-dashboard'" [size]="18"
+              /></span>
+              <span class="admin-nav__text">
+                <span class="admin-nav__item-label">{{ item.label }}</span>
+                <span class="admin-nav__item-description">{{ item.description }}</span>
+              </span>
+            </a>
+          }
+        </div>
+      }
+    </nav>
+
+    <div class="admin-drawer__footer">
+      <div class="preview-card">
+        <div class="preview-card__top">
+          <app-icon name="lock" [size]="16" />
+          <span>Preview mode</span>
+        </div>
+        <p>Authentication, roles and live data will be connected in Phase 2.</p>
+      </div>
+      <a class="admin-drawer__site-link" routerLink="/">
+        <app-icon name="external-link" [size]="15" />
+        View public website
+      </a>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="admin-content">
+    <header class="admin-topbar">
+      <div class="admin-topbar__left">
+        <button
+          type="button"
+          class="icon-btn admin-menu-button"
+          [attr.aria-label]="sidenavOpened() ? 'Close sidebar' : 'Open sidebar'"
+          (click)="toggleSidebar()"
+        >
+          <app-icon [name]="sidenavOpened() ? 'panel-left-close' : 'panel-left'" [size]="20" />
+        </button>
+        <div class="admin-title">
+          <span class="admin-title__crumb">Scholars Admin</span>
+          <div class="admin-title__row">
+            <h1>{{ pageTitle() }}</h1>
+            <span class="admin-title__description">{{ pageDescription() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-topbar__actions">
+        <span class="admin-date">{{ today }}</span>
+        <app-theme-toggle [compact]="true" />
+        <a class="admin-view-site" routerLink="/" title="Open public website">
+          <app-icon name="external-link" [size]="16" />
+          <span>View site</span>
+        </a>
+        @if (isAuthenticated(); as auth) {
+          <div class="admin-profile" [title]="user()?.email">
+            <span class="admin-profile__avatar">{{
+              user()?.email?.charAt(0)?.toUpperCase() ?? 'A'
+            }}</span>
+            <span class="admin-profile__text">
+              <strong>{{ user()?.email }}</strong>
+              <span>{{ user()?.role }}</span>
+            </span>
+            <button class="icon-btn" type="button" (click)="logout()" title="Sign out">
+              <app-icon [name]="'log-out'" [size]="16" />
+            </button>
+          </div>
+        } @else {
+          <div class="admin-profile" title="Not signed in">
+            <span class="admin-profile__avatar">A</span>
+            <span class="admin-profile__text">
+              <strong>Administrator</strong>
+              <span>Preview account</span>
+            </span>
+          </div>
+        }
+      </div>
+    </header>
+
+    <div class="preview-banner">
+      <app-icon name="shield-check" [size]="16" />
+      <span>
+        <strong>Phase 1 UI preview.</strong>
+        Sign-in, role-based access and database connections are not active yet. Do not enter
+        confidential information.
+      </span>
+    </div>
+
+    <main class="admin-main">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

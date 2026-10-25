@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  STAFF
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(STAFF)
+  status       String   @default("active")
+  createdAt    DateTime @default(now()) @db.Timestamptz
+  updatedAt    DateTime @updatedAt @db.Timestamptz
+
+  refreshTokens RefreshToken[]
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  tokenHash String
+  expiresAt DateTime @db.Timestamptz
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now()) @db.Timestamptz
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Announcement {
+  id         String   @id @default(uuid()) @db.Uuid
+  title      String
+  body       String
+  status     String   @default("draft")
+  createdAt  DateTime @default(now()) @db.Timestamptz
+  updatedAt  DateTime @updatedAt @db.Timestamptz
+}
+
+model ContactMessage {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+}
+
+enum AdmissionStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+  WAITLISTED
+}
+
+enum AdmissionClass {
+  PG
+  NURSERY
+  PREP
+  GRADE_1
+  GRADE_2
+  GRADE_3
+  GRADE_4
+  GRADE_5
+  GRADE_6
+  GRADE_7
+  GRADE_8
+}
+
+enum AdmissionGender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum AdmissionTemplate {
+  NEW
+  RE_ADMISSION
+  SIBLING
+  TRANSFER
+}
+
+model AdmissionApplication {
+  id                    String        @id @default(uuid()) @db.Uuid
+  template              AdmissionTemplate
+  appliedClass          AdmissionClass
+  studentFullName       String
+  fatherFullName        String
+  fatherCNIC            String
+  dateOfBirth           DateTime      @db.Timestamptz
+  dateOfBirthInWords    String
+  gender                AdmissionGender
+  fatherOccupation      String
+  domicile              String
+  nationality           String
+  residentialAddress    String
+  primaryContact        String
+  alternateContact      String?
+  previousClass         String?
+  previousSchoolName    String?
+  leavingDate           DateTime?     @db.Timestamptz
+  photoUrl              String
+  cnicCopyUrl           String?
+  domicileCopyUrl       String?
+  schoolLeavingCertUrl  String?
+  status                AdmissionStatus @default(SUBMITTED)
+  createdAt             DateTime      @default(now()) @db.Timestamptz
+  updatedAt             DateTime      @updatedAt @db.Timestamptz
+}

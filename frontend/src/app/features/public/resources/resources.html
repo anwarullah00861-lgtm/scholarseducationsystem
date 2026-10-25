@@ -1,0 +1,125 @@
+<app-page-hero
+  eyebrow="Resource library"
+  title="Textbooks, syllabus and curriculum — in one place."
+  description="A digital library for the school community, designed for clear browsing, secure publishing and easy PDF access."
+/>
+
+<section class="section">
+  <div class="container library-intro">
+    <div class="library-intro__copy">
+      <app-section-heading
+        eyebrow="Digital library"
+        title="A library that is easy to use."
+        description="The e-book and PDF library is being prepared alongside the admin dashboard. Authorised staff will publish approved resources; families will be able to find them by category and class."
+      />
+      <div class="notice notice--info">
+        <app-icon name="info" [size]="19" />
+        <div>
+          <strong>Library status</strong>
+          No public files have been published yet. Sample titles, fake download links and unapproved
+          documents will not be shown.
+        </div>
+      </div>
+    </div>
+
+    <div class="shelf-card" aria-hidden="true">
+      <div class="shelf-card__header">
+        <span class="shelf-card__mark"><app-icon name="library" [size]="20" /></span>
+        <span>Scholars Library</span>
+        <span class="chip chip--accent">Preparing</span>
+      </div>
+      <div class="shelf">
+        <span class="shelf__book shelf__book--1">Syllabus</span>
+        <span class="shelf__book shelf__book--2">Class 1</span>
+        <span class="shelf__book shelf__book--3">Iqbal</span>
+        <span class="shelf__book shelf__book--4">Class 6</span>
+        <span class="shelf__book shelf__book--5">Curriculum</span>
+        <span class="shelf__book shelf__book--6">Class 8</span>
+      </div>
+      <div class="shelf__base"></div>
+      <p class="shelf-card__caption">Textbooks · Syllabus · Curriculum · Iqbal Series</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <app-section-heading
+      eyebrow="Collections"
+      title="Organised around what families need."
+      description="Each collection will support in-browser viewing and downloading, with the school controlling what is published."
+      align="center"
+    />
+
+    <div class="category-grid">
+      @for (category of categories; track category.title) {
+        <article class="category-card">
+          <div class="category-card__top">
+            <span class="category-card__icon"><app-icon [name]="category.icon" [size]="23" /></span>
+            <span class="chip">Planned</span>
+          </div>
+          <h3>{{ category.title }}</h3>
+          <p>{{ category.description }}</p>
+          <ul class="category-card__examples">
+            @for (example of category.examples; track example) {
+              <li>
+                <app-icon name="circle-check" [size]="15" />
+                {{ example }}
+              </li>
+            }
+          </ul>
+          <span class="category-card__status">
+            <app-icon name="lock" [size]="14" />
+            Awaiting approved uploads
+          </span>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="how-grid">
+      <div>
+        <app-section-heading
+          eyebrow="How it will work"
+          title="From approved file to family bookshelf."
+          description="The library is part of the same secure admin workspace that will manage admissions, content and media."
+        />
+      </div>
+      <ol class="how-list">
+        @for (step of steps; track step.title; let index = $index) {
+          <li class="how-step">
+            <span class="how-step__number">0{{ index + 1 }}</span>
+            <div>
+              <h3>{{ step.title }}</h3>
+              <p>{{ step.description }}</p>
+            </div>
+          </li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="resources-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Looking for the Iqbal collection?</p>
+        <h2>The Iqbal Series has its own section.</h2>
+        <p>
+          Book titles will be published there only after the school confirms the list and editions.
+        </p>
+      </div>
+      <div class="resources-cta__actions">
+        <a class="btn btn--accent" routerLink="/iqbal-series">
+          Visit Iqbal Series
+          <app-icon name="arrow-right" [size]="17" />
+        </a>
+        <a class="btn btn--ghost" routerLink="/admissions">Admission information</a>
+      </div>
+    </div>
+  </div>
+</section>

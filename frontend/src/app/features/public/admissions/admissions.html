@@ -1,0 +1,78 @@
+<app-page-hero
+  eyebrow="Admissions"
+  title="Online Admission Application"
+  description="Apply for admission to PG, Nursery, Prep or Classes 1–8."
+>
+</app-page-hero>
+
+<section class="section">
+  <div class="container">
+    <div class="admissions-banner">
+      <span class="admissions-banner__icon"><app-icon name="circle-check" [size]="21" /></span>
+      <div class="admissions-banner__copy">
+        <p class="admissions-banner__label">Admissions portal status</p>
+        <h2>Online applications are open.</h2>
+        <p>
+          Complete the online admission form below to apply for your child. All fields marked with
+          <span class="required">*</span> are required.
+        </p>
+      </div>
+      <a class="btn btn--accent" routerLink="/admissions/apply">
+        Start Application
+        <app-icon name="arrow-right" [size]="17" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container process">
+    <app-section-heading
+      eyebrow="How it works"
+      title="Four steps from application to enrolment."
+      description="The online process is designed to be straightforward for families and easy for the school office to review."
+    >
+    </app-section-heading>
+
+    <ol class="step-grid">
+      @for (step of steps; track step.title; let index = $index) {
+        <li class="step-card">
+          <div class="step-card__top">
+            <span class="step-card__number">{{ index + 1 }}</span>
+            @if (index < steps.length - 1) {
+              <span class="step-card__line" aria-hidden="true"></span>
+            }
+          </div>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </li>
+      }
+    </ol>
+  </div>
+</section>
+
+<section class="section section--tight faq-section">
+  <div class="container">
+    <div class="faq-intro">
+      <app-section-heading
+        eyebrow="Questions"
+        title="What families ask first."
+        description="If your question is not answered here, the school’s confirmed contact details will be published on the contact page."
+      >
+      </app-section-heading>
+      <a class="btn btn--outline" routerLink="/contact">
+        Go to contact page
+        <app-icon name="arrow-right" [size]="16" />
+      </a>
+    </div>
+
+    <div class="faq-list">
+      @for (faq of faqs; track faq.question) {
+        <div class="faq-item">
+          <h4 class="faq-question">{{ faq.question }}</h4>
+          <p class="faq-answer">{{ faq.answer }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

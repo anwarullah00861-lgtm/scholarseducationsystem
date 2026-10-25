@@ -1,0 +1,125 @@
+<div class="dashboard">
+  <section class="dashboard-head">
+    <div>
+      <p class="eyebrow">Workspace overview</p>
+      <h2>Welcome to the Scholars admin workspace.</h2>
+      <p>
+        A single place to manage the school website, admissions, students, resources and reports.
+        The shell is ready; the secure services come next.
+      </p>
+    </div>
+    <div class="dashboard-head__actions">
+      <span class="health-pill"><span aria-hidden="true"></span>Foundation ready</span>
+      <a class="btn btn--outline btn--sm" routerLink="/">
+        <app-icon name="external-link" [size]="15" />
+        View website
+      </a>
+    </div>
+  </section>
+
+  <section class="stat-grid" aria-label="School overview">
+    @for (stat of stats; track stat.label) {
+      <app-stat-card
+        [icon]="stat.icon"
+        [value]="stat.value"
+        [label]="stat.label"
+        [note]="stat.note"
+        [badge]="stat.badge ?? ''"
+        [tone]="stat.tone ?? 'default'"
+      />
+    }
+  </section>
+
+  <div class="dashboard-grid">
+    <section class="panel panel--chart" aria-labelledby="chart-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Enrolment</p>
+          <h2 id="chart-title">Enquiry growth</h2>
+        </div>
+        <span class="chip chip--accent">Sample data</span>
+      </div>
+      <div class="chart-frame">
+        <canvas
+          #enrollmentChart
+          role="img"
+          aria-label="Bar chart showing a sample admission enquiry trend from April to September"
+        ></canvas>
+      </div>
+      <p class="panel__note">
+        Illustration only. Real enrolment statistics will replace this chart when the student
+        database is connected.
+      </p>
+    </section>
+
+    <section class="panel" aria-labelledby="readiness-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Build status</p>
+          <h2 id="readiness-title">Workspace readiness</h2>
+        </div>
+        <span class="chip chip--primary">Phase 1</span>
+      </div>
+
+      <ul class="readiness-list">
+        @for (item of readiness; track item.label) {
+          <li [class.is-planned]="item.status === 'planned'">
+            <span class="readiness-list__icon">
+              <app-icon [name]="item.status === 'ready' ? 'circle-check' : 'clock'" [size]="17" />
+            </span>
+            <div>
+              <strong>{{ item.label }}</strong>
+              <span>{{ item.detail }}</span>
+            </div>
+            <span class="readiness-list__status">
+              {{ item.status === 'ready' ? 'Ready' : 'Planned' }}
+            </span>
+          </li>
+        }
+      </ul>
+    </section>
+  </div>
+
+  <div class="dashboard-grid dashboard-grid--lower">
+    <section class="panel" aria-labelledby="actions-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Shortcuts</p>
+          <h2 id="actions-title">Common admin tasks</h2>
+        </div>
+      </div>
+
+      <div class="quick-grid">
+        @for (action of quickActions; track action.path) {
+          <a class="quick-action" [routerLink]="action.path">
+            <span class="quick-action__icon"><app-icon [name]="action.icon" [size]="19" /></span>
+            <span class="quick-action__copy">
+              <strong>{{ action.label }}</strong>
+              <span>{{ action.description }}</span>
+            </span>
+            <app-icon name="arrow-up-right" [size]="16" />
+          </a>
+        }
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="activity-title">
+      <div class="panel__header">
+        <div>
+          <p class="panel__eyebrow">Activity</p>
+          <h2 id="activity-title">Recent changes</h2>
+        </div>
+      </div>
+
+      <div class="empty-activity">
+        <span class="empty-activity__icon"><app-icon name="database" [size]="24" /></span>
+        <h3>No activity yet</h3>
+        <p>
+          As administrators publish content and review applications, a live activity feed will
+          appear here.
+        </p>
+        <span class="chip">Waiting for Phase 2</span>
+      </div>
+    </section>
+  </div>
+</div>

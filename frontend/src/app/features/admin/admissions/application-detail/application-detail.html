@@ -1,0 +1,447 @@
+<div class="detail-page">
+  <div class="detail-toolbar no-print">
+    <a class="back-link" routerLink="/admin/admissions">
+      <app-icon name="arrow-right" [size]="16" class="back-link__flip" />
+      All applications
+    </a>
+
+    <h1 class="detail-title">Application record</h1>
+
+    <div class="template-picker" role="group" aria-label="Print template">
+      <span class="template-picker__label">Form template</span>
+      <div class="template-picker__options">
+        @for (template of templates; track template.id) {
+          <button
+            type="button"
+            class="template-chip"
+            [class.template-chip--active]="selectedTemplate() === template.id"
+            (click)="selectTemplate(template.id)"
+          >
+            <app-icon [name]="template.icon" [size]="15" />
+            <span class="template-chip__text">
+              <span class="template-chip__name">{{ template.label }}</span>
+              <span class="template-chip__desc">{{ template.description }}</span>
+            </span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn--outline" (click)="print()">
+        <app-icon name="file-text" [size]="16" />
+        Print preview
+      </button>
+      <button type="button" class="btn btn--accent" (click)="print()">
+        <app-icon name="download" [size]="16" />
+        Export PDF
+      </button>
+      <p class="toolbar-hint">
+        Use “Export PDF”, then choose <em>Save as PDF</em> in the print dialog.
+      </p>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="state-block no-print">
+      <app-icon name="clock" [size]="26" />
+      <p>Loading application…</p>
+    </div>
+  } @else if (error()) {
+    <div class="state-block state-block--error no-print">
+      <app-icon name="triangle-alert" [size]="26" />
+      <p>{{ error() }}</p>
+      <button type="button" class="btn btn--outline" (click)="loadApplication()">Retry</button>
+    </div>
+  } @else if (application(); as app) {
+    @switch (selectedTemplate()) {
+      @case ('classic') {
+        <!-- Template 1: Classic bordered paper form -->
+        <article class="print-sheet classic">
+          <header class="classic__header">
+            <img
+              class="classic__logo"
+              src="assets/images/school-logo.jpeg"
+              alt="Scholars Education System logo"
+            />
+            <div class="classic__heading">
+              <h2>Scholars Education System</h2>
+              <p class="classic__sub">Admission Application Form</p>
+              <p class="classic__meta">Academic year 2026–27 · Miran Shah, North Waziristan</p>
+            </div>
+            <div class="classic__ref">
+              <span>Ref</span>
+              <strong>{{ app.id.slice(0, 8).toUpperCase() }}</strong>
+            </div>
+          </header>
+
+          <p class="classic__type">
+            Application type: <strong>{{ templateLabel(app.template) }}</strong>
+          </p>
+
+          <table class="classic__table">
+            <tbody>
+              <tr>
+                <th>Class applied for</th>
+                <td>{{ classLabel(app.appliedClass) }}</td>
+                <th>Photo</th>
+                <td class="classic__photo">
+                  <img [src]="app.photoUrl" alt="Applicant photograph" />
+                </td>
+              </tr>
+              <tr>
+                <th>Student full name</th>
+                <td>{{ app.studentFullName }}</td>
+                <th>Gender</th>
+                <td>{{ genderLabel(app.gender) }}</td>
+              </tr>
+              <tr>
+                <th>Father's full name</th>
+                <td>{{ app.fatherFullName }}</td>
+                <th>Father's CNIC</th>
+                <td>{{ app.fatherCNIC }}</td>
+              </tr>
+              <tr>
+                <th>Date of birth</th>
+                <td>{{ formatDate(app.dateOfBirth) }}</td>
+                <th>In words</th>
+                <td>{{ app.dateOfBirthInWords }}</td>
+              </tr>
+              <tr>
+                <th>Father's occupation</th>
+                <td>{{ app.fatherOccupation }}</td>
+                <th>Domicile</th>
+                <td>{{ app.domicile }}</td>
+              </tr>
+              <tr>
+                <th>Nationality</th>
+                <td>{{ app.nationality }}</td>
+                <th>Primary contact</th>
+                <td>{{ app.primaryContact }}</td>
+              </tr>
+              <tr>
+                <th>Residential address</th>
+                <td colspan="3">{{ app.residentialAddress }}</td>
+              </tr>
+              <tr>
+                <th>Previous school</th>
+                <td>{{ app.previousSchoolName || '—' }}</td>
+                <th>Previous class</th>
+                <td>{{ app.previousClass || '—' }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <footer class="classic__footer">
+            <p>Submitted on {{ formatDate(app.createdAt) }}</p>
+            <div class="classic__signatures">
+              <span>Parent / Guardian signature</span>
+              <span>Office use</span>
+            </div>
+          </footer>
+        </article>
+      }
+
+      @case ('modern') {
+        <!-- Template 2: Modern grouped two-column layout -->
+        <article class="print-sheet modern">
+          <header class="modern__header">
+            <img
+              class="modern__logo"
+              src="assets/images/school-logo.jpeg"
+              alt="Scholars Education System logo"
+            />
+            <div>
+              <h2>Scholars Education System</h2>
+              <p>Online Admission Application · {{ templateLabel(app.template) }}</p>
+            </div>
+            <span class="modern__badge">{{ statusLabel(app.status) }}</span>
+          </header>
+
+          <section class="modern__group">
+            <h3>Student</h3>
+            <div class="modern__grid">
+              <div class="modern__field">
+                <span>Full name</span>
+                <strong>{{ app.studentFullName }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Class applied</span>
+                <strong>{{ classLabel(app.appliedClass) }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Date of birth</span>
+                <strong>{{ formatDate(app.dateOfBirth) }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>In words</span>
+                <strong>{{ app.dateOfBirthInWords }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Gender</span>
+                <strong>{{ genderLabel(app.gender) }}</strong>
+              </div>
+              <div class="modern__field modern__field--photo">
+                <img [src]="app.photoUrl" alt="Applicant photograph" />
+              </div>
+            </div>
+          </section>
+
+          <section class="modern__group">
+            <h3>Parent / Guardian</h3>
+            <div class="modern__grid">
+              <div class="modern__field">
+                <span>Father's name</span>
+                <strong>{{ app.fatherFullName }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>CNIC</span>
+                <strong>{{ app.fatherCNIC }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Occupation</span>
+                <strong>{{ app.fatherOccupation }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Contact</span>
+                <strong>{{ app.primaryContact }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Domicile</span>
+                <strong>{{ app.domicile }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Nationality</span>
+                <strong>{{ app.nationality }}</strong>
+              </div>
+            </div>
+          </section>
+
+          <section class="modern__group">
+            <h3>Address & previous schooling</h3>
+            <div class="modern__grid">
+              <div class="modern__field modern__field--wide">
+                <span>Residential address</span>
+                <strong>{{ app.residentialAddress }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Previous school</span>
+                <strong>{{ app.previousSchoolName || '—' }}</strong>
+              </div>
+              <div class="modern__field">
+                <span>Previous class</span>
+                <strong>{{ app.previousClass || '—' }}</strong>
+              </div>
+            </div>
+          </section>
+
+          <footer class="modern__footer">
+            Reference {{ app.id.slice(0, 8).toUpperCase() }} · Submitted
+            {{ formatDate(app.createdAt) }}
+          </footer>
+        </article>
+      }
+
+      @case ('compact') {
+        <!-- Template 3: Compact single-page summary -->
+        <article class="print-sheet compact">
+          <header class="compact__header">
+            <img
+              class="compact__logo"
+              src="assets/images/school-logo.jpeg"
+              alt="Scholars Education System logo"
+            />
+            <div>
+              <h2>Admission Summary</h2>
+              <p>Scholars Education System · Academic year 2026–27</p>
+            </div>
+          </header>
+
+          <div class="compact__row">
+            <div class="compact__identity">
+              <img [src]="app.photoUrl" alt="Applicant photograph" />
+              <div>
+                <h3>{{ app.studentFullName }}</h3>
+                <p>{{ classLabel(app.appliedClass) }} · {{ genderLabel(app.gender) }}</p>
+                <p class="compact__dob">DOB: {{ formatDate(app.dateOfBirth) }}</p>
+              </div>
+            </div>
+            <dl class="compact__facts">
+              <div>
+                <dt>Form type</dt>
+                <dd>{{ templateLabel(app.template) }}</dd>
+              </div>
+              <div>
+                <dt>Reference</dt>
+                <dd>{{ app.id.slice(0, 8).toUpperCase() }}</dd>
+              </div>
+              <div>
+                <dt>Submitted</dt>
+                <dd>{{ formatDate(app.createdAt) }}</dd>
+              </div>
+            </dl>
+          </div>
+
+          <dl class="compact__details">
+            <div>
+              <dt>Father / Guardian</dt>
+              <dd>{{ app.fatherFullName }}</dd>
+            </div>
+            <div>
+              <dt>CNIC</dt>
+              <dd>{{ app.fatherCNIC }}</dd>
+            </div>
+            <div>
+              <dt>Occupation</dt>
+              <dd>{{ app.fatherOccupation }}</dd>
+            </div>
+            <div>
+              <dt>Contact</dt>
+              <dd>{{ app.primaryContact }}</dd>
+            </div>
+            <div>
+              <dt>Domicile / Nationality</dt>
+              <dd>{{ app.domicile }} · {{ app.nationality }}</dd>
+            </div>
+            <div>
+              <dt>Previous school</dt>
+              <dd>{{ app.previousSchoolName || '—' }}</dd>
+            </div>
+            <div class="compact__details--wide">
+              <dt>Address</dt>
+              <dd>{{ app.residentialAddress }}</dd>
+            </div>
+          </dl>
+
+          <footer class="compact__footer">
+            <span>Parent signature</span>
+            <span>Office stamp</span>
+          </footer>
+        </article>
+      }
+
+      @case ('detailed') {
+        <!-- Template 4: Detailed record with documents and review status -->
+        <article class="print-sheet detailed">
+          <header class="detailed__header">
+            <img
+              class="detailed__logo"
+              src="assets/images/school-logo.jpeg"
+              alt="Scholars Education System logo"
+            />
+            <div>
+              <h2>Admission Application Record</h2>
+              <p>Scholars Education System · Miran Shah, North Waziristan</p>
+            </div>
+            <span class="detailed__badge">{{ statusLabel(app.status) }}</span>
+          </header>
+
+          <div class="detailed__banner">
+            <span>{{ templateLabel(app.template) }}</span>
+            <span>{{ classLabel(app.appliedClass) }}</span>
+            <span>Ref {{ app.id.slice(0, 8).toUpperCase() }}</span>
+          </div>
+
+          <table class="detailed__table">
+            <thead>
+              <tr>
+                <th colspan="4">Student particulars</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Full name</td>
+                <td>{{ app.studentFullName }}</td>
+                <td>Gender</td>
+                <td>{{ genderLabel(app.gender) }}</td>
+              </tr>
+              <tr>
+                <td>Date of birth</td>
+                <td>{{ formatDate(app.dateOfBirth) }}</td>
+                <td>In words</td>
+                <td>{{ app.dateOfBirthInWords }}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th colspan="4">Parent / Guardian particulars</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Father's name</td>
+                <td>{{ app.fatherFullName }}</td>
+                <td>CNIC</td>
+                <td>{{ app.fatherCNIC }}</td>
+              </tr>
+              <tr>
+                <td>Occupation</td>
+                <td>{{ app.fatherOccupation }}</td>
+                <td>Domicile</td>
+                <td>{{ app.domicile }}</td>
+              </tr>
+              <tr>
+                <td>Nationality</td>
+                <td>{{ app.nationality }}</td>
+                <td>Primary contact</td>
+                <td>{{ app.primaryContact }}</td>
+              </tr>
+              <tr>
+                <td>Alternate contact</td>
+                <td>{{ app.alternateContact || '—' }}</td>
+                <td>Residential address</td>
+                <td>{{ app.residentialAddress }}</td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th colspan="4">Previous schooling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Previous class</td>
+                <td>{{ app.previousClass || '—' }}</td>
+                <td>Previous school</td>
+                <td>{{ app.previousSchoolName || '—' }}</td>
+              </tr>
+              <tr>
+                <td>Leaving date</td>
+                <td>{{ formatDate(app.leavingDate) }}</td>
+                <td>Photograph</td>
+                <td class="detailed__photo">
+                  <img [src]="app.photoUrl" alt="Applicant photograph" />
+                </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th colspan="4">Supporting documents</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Father's CNIC copy</td>
+                <td>{{ app.cnicCopyUrl ? 'Attached' : 'Not provided' }}</td>
+                <td>Domicile copy</td>
+                <td>{{ app.domicileCopyUrl ? 'Attached' : 'Not provided' }}</td>
+              </tr>
+              <tr>
+                <td>School leaving certificate</td>
+                <td>{{ app.schoolLeavingCertUrl ? 'Attached' : 'Not provided' }}</td>
+                <td>Submitted on</td>
+                <td>{{ formatDate(app.createdAt) }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <footer class="detailed__footer">
+            <span>Parent / Guardian signature</span>
+            <span>Admissions officer</span>
+            <span>Principal</span>
+          </footer>
+        </article>
+      }
+    }
+  }
+</div>

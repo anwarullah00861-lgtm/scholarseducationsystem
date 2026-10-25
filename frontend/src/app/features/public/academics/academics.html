@@ -1,0 +1,135 @@
+<app-page-hero
+  eyebrow="Academics"
+  title="A clear pathway from PG to Class 8"
+  description="Eleven class levels, carefully organised into three stages — with strong foundations, purposeful assessment and growing independence at every step."
+/>
+
+<section class="section">
+  <div class="container">
+    <div class="academics-intro">
+      <app-section-heading
+        eyebrow="Learning stages"
+        title="The right challenge at the right time."
+        description="Each stage has clear priorities, while the whole school shares one commitment: students should understand their learning, not simply repeat it."
+      />
+      <div class="level-pills" aria-label="Supported classes">
+        @for (stage of stages; track stage.id) {
+          <span class="chip chip--primary">{{ stage.levels }}</span>
+        }
+      </div>
+    </div>
+
+    <div class="stage-list">
+      @for (stage of stages; track stage.id; let index = $index) {
+        <article class="stage-card" [id]="stage.id">
+          <div class="stage-card__aside">
+            <span class="stage-card__number">0{{ index + 1 }}</span>
+            <span class="stage-card__icon"><app-icon [name]="stage.icon" [size]="25" /></span>
+          </div>
+          <div class="stage-card__body">
+            <p class="eyebrow">{{ stage.eyebrow }}</p>
+            <div class="stage-card__heading">
+              <h2>{{ stage.title }}</h2>
+              <span class="chip">{{ stage.levels }}</span>
+            </div>
+            <p class="stage-card__description">{{ stage.description }}</p>
+            <ul class="stage-card__focus" aria-label="Focus areas">
+              @for (item of stage.focus; track item) {
+                <li>
+                  <app-icon name="circle-check" [size]="16" />
+                  {{ item }}
+                </li>
+              }
+            </ul>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt">
+  <div class="container">
+    <app-section-heading
+      eyebrow="How learning works"
+      title="A consistent approach across the school."
+      description="Good teaching is deliberate. These four habits sit behind the way lessons are planned and reviewed."
+      align="center"
+    />
+
+    <div class="approach-grid">
+      @for (item of approach; track item.title) {
+        <article class="approach-card">
+          <span class="approach-card__icon"><app-icon [name]="item.icon" [size]="21" /></span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="assessment-grid">
+      <div class="assessment-copy">
+        <app-section-heading
+          eyebrow="Assessment"
+          title="Two clear checkpoints. Feedback throughout."
+          description="The school’s academic calendar includes Midterm and Final examinations. These formal checkpoints sit alongside the everyday work teachers use to understand progress."
+        />
+        <div class="notice notice--info">
+          <app-icon name="info" [size]="19" />
+          <div>
+            <strong>Term dates and exam schedules</strong>
+            The school will publish confirmed dates and class-specific guidance through its official
+            communication channels.
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-cards">
+        <article class="exam-card">
+          <span class="exam-card__badge">Term 1</span>
+          <app-icon name="clipboard-list" [size]="24" />
+          <h3>Midterm examination</h3>
+          <p>
+            A mid-year checkpoint that helps teachers and families see what is secure and what needs
+            attention.
+          </p>
+        </article>
+        <article class="exam-card exam-card--accent">
+          <span class="exam-card__badge">Term 2</span>
+          <app-icon name="circle-check" [size]="24" />
+          <h3>Final examination</h3>
+          <p>
+            An end-of-year assessment of learning across the full course, followed by reporting to
+            families.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="container">
+    <div class="academics-cta">
+      <div>
+        <p class="eyebrow eyebrow--light">Next step</p>
+        <h2>See how your child can join.</h2>
+        <p>
+          Admission information explains the enquiry process and how online forms will work when the
+          portal opens.
+        </p>
+      </div>
+      <div class="academics-cta__actions">
+        <a class="btn btn--accent" routerLink="/admissions">
+          Admission information
+          <app-icon name="arrow-right" [size]="17" />
+        </a>
+        <a class="btn btn--ghost" routerLink="/resources">Preview resources</a>
+      </div>
+    </div>
+  </div>
+</section>

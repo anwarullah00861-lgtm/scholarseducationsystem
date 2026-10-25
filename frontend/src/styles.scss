@@ -1,0 +1,649 @@
+@use '@angular/material' as mat;
+@use 'tokens';
+@use 'mixins' as mix;
+
+// Angular Material M3 theme. System tokens use light-dark(), so the
+// `color-scheme` toggled by ThemeService drives Material's own dark mode too.
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$green-palette,
+        tertiary: mat.$yellow-palette,
+      ),
+      typography: (
+        plain-family: (
+          'Manrope Variable',
+          'Segoe UI',
+          system-ui,
+          sans-serif,
+        ),
+        brand-family: (
+          'Fraunces Variable',
+          Georgia,
+          serif,
+        ),
+        bold-weight: 700,
+        medium-weight: 600,
+        regular-weight: 450,
+      ),
+      density: 0,
+    )
+  );
+
+  color-scheme: light;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--ses-header-height) + 1.5rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ses-bg);
+  color: var(--ses-text);
+  font-family: var(--ses-font-sans);
+  font-size: var(--ses-text-base);
+  line-height: 1.65;
+  font-weight: 450;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition:
+    background-color var(--ses-duration) ease,
+    color var(--ses-duration) ease;
+}
+
+app-root {
+  display: block;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--ses-heading);
+  font-family: var(--ses-font-display);
+  font-weight: 560;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  font-optical-sizing: auto;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--ses-text-4xl);
+  line-height: 1.02;
+}
+
+h2 {
+  font-size: var(--ses-text-3xl);
+}
+
+h3 {
+  font-size: var(--ses-text-2xl);
+}
+
+h4 {
+  font-size: var(--ses-text-xl);
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--ses-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+
+  &:hover {
+    color: var(--ses-primary-strong);
+  }
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--ses-accent);
+  color: var(--ses-accent-contrast);
+}
+
+:focus-visible {
+  @include mix.focus-ring;
+}
+
+main:focus {
+  outline: none;
+}
+
+// ---------------------------------------------------------------------------
+// Layout helpers
+// ---------------------------------------------------------------------------
+.container {
+  width: min(100% - 2.5rem, var(--ses-container));
+  margin-inline: auto;
+
+  @include mix.up(mix.$bp-md) {
+    width: min(100% - 4rem, var(--ses-container));
+  }
+}
+
+.container--narrow {
+  width: min(100% - 2.5rem, var(--ses-container-narrow));
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+.section--tight {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.section--alt {
+  background: var(--ses-surface-2);
+  border-block: 1px solid var(--ses-border);
+}
+
+.section--deep {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(184, 134, 27, 0.16), transparent 32%),
+    radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.07), transparent 36%),
+    linear-gradient(145deg, var(--ses-deep), var(--ses-deep-2));
+  color: var(--ses-deep-text);
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--ses-deep-text);
+  }
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ses-space-4);
+}
+
+.stack--lg {
+  gap: var(--ses-space-6);
+}
+
+.grid {
+  display: grid;
+  gap: var(--ses-space-6);
+}
+
+.grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+}
+
+.grid--3 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+}
+
+.grid--4 {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13.5rem), 1fr));
+}
+
+// ---------------------------------------------------------------------------
+// Typography helpers
+// ---------------------------------------------------------------------------
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: var(--ses-primary);
+  font-family: var(--ses-font-sans);
+  font-size: var(--ses-text-xs);
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  text-transform: uppercase;
+
+  &::before {
+    width: 1.5rem;
+    height: 2px;
+    background: var(--ses-accent);
+    content: '';
+  }
+}
+
+.eyebrow--light {
+  color: var(--ses-accent);
+
+  &::before {
+    background: var(--ses-accent);
+  }
+}
+
+.lead {
+  color: var(--ses-muted);
+  font-size: var(--ses-text-lg);
+  line-height: 1.75;
+}
+
+.muted {
+  color: var(--ses-muted);
+}
+
+.text-accent {
+  color: var(--ses-accent-strong);
+}
+
+.text-primary {
+  color: var(--ses-primary);
+}
+
+.prose {
+  p + p {
+    margin-top: 1rem;
+  }
+
+  p {
+    color: var(--ses-muted);
+  }
+
+  strong {
+    color: var(--ses-text);
+  }
+}
+
+.section-heading {
+  max-width: 44rem;
+
+  h2 {
+    margin-top: 0.75rem;
+  }
+
+  .lead {
+    margin-top: 1rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reusable UI primitives
+// ---------------------------------------------------------------------------
+.btn {
+  display: inline-flex;
+  min-height: 2.875rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.7rem 1.3rem;
+  border: 1px solid transparent;
+  border-radius: var(--ses-radius-full);
+  background: transparent;
+  color: var(--ses-text);
+  font-family: var(--ses-font-sans);
+  font-size: var(--ses-text-sm);
+  font-weight: 750;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--ses-duration) var(--ses-ease),
+    background-color var(--ses-duration) ease,
+    border-color var(--ses-duration) ease,
+    color var(--ses-duration) ease,
+    box-shadow var(--ses-duration) ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn app-icon {
+  transition: transform var(--ses-duration) var(--ses-ease);
+}
+
+.btn:hover app-icon {
+  transform: translateX(2px);
+}
+
+.btn--primary {
+  background: var(--ses-primary);
+  border-color: var(--ses-primary);
+  color: var(--ses-primary-contrast);
+  box-shadow: 0 8px 22px rgba(14, 74, 62, 0.18);
+
+  &:hover {
+    background: var(--ses-primary-strong);
+    border-color: var(--ses-primary-strong);
+    color: var(--ses-primary-contrast);
+  }
+}
+
+.btn--accent {
+  background: var(--ses-accent);
+  border-color: var(--ses-accent);
+  color: var(--ses-accent-contrast);
+  box-shadow: 0 8px 22px rgba(184, 134, 27, 0.2);
+
+  &:hover {
+    background: var(--ses-accent-strong);
+    border-color: var(--ses-accent-strong);
+    color: var(--ses-accent-contrast);
+  }
+}
+
+.btn--outline {
+  background: transparent;
+  border-color: var(--ses-border-strong);
+  color: var(--ses-text);
+
+  &:hover {
+    background: var(--ses-surface);
+    border-color: var(--ses-primary);
+    color: var(--ses-primary);
+  }
+}
+
+.btn--ghost {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--ses-deep-border);
+  color: var(--ses-deep-text);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: var(--ses-deep-text);
+  }
+}
+
+.btn--sm {
+  min-height: 2.35rem;
+  padding: 0.45rem 0.95rem;
+  font-size: var(--ses-text-xs);
+}
+
+.btn--lg {
+  min-height: 3.15rem;
+  padding: 0.8rem 1.6rem;
+  font-size: var(--ses-text-base);
+}
+
+.icon-btn {
+  display: inline-flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-full);
+  background: var(--ses-surface);
+  color: var(--ses-text);
+  cursor: pointer;
+  transition:
+    background-color var(--ses-duration) ease,
+    border-color var(--ses-duration) ease,
+    color var(--ses-duration) ease,
+    transform var(--ses-duration) var(--ses-ease);
+
+  &:hover {
+    border-color: var(--ses-primary);
+    background: var(--ses-primary-soft);
+    color: var(--ses-primary);
+    transform: translateY(-1px);
+  }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-full);
+  background: var(--ses-surface);
+  color: var(--ses-muted);
+  font-size: var(--ses-text-xs);
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.chip--accent {
+  border-color: transparent;
+  background: var(--ses-accent-soft);
+  color: var(--ses-accent-strong);
+}
+
+.chip--primary {
+  border-color: transparent;
+  background: var(--ses-primary-soft);
+  color: var(--ses-primary);
+}
+
+.chip--light {
+  border-color: var(--ses-deep-border);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--ses-deep-text);
+}
+
+.card {
+  @include mix.surface;
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.card--flat {
+  box-shadow: none;
+}
+
+.card--hover {
+  transition:
+    transform var(--ses-duration) var(--ses-ease),
+    box-shadow var(--ses-duration) ease,
+    border-color var(--ses-duration) ease;
+
+  &:hover {
+    border-color: var(--ses-border-strong);
+    box-shadow: var(--ses-shadow-md);
+    transform: translateY(-3px);
+  }
+}
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ses-primary);
+  font-size: var(--ses-text-sm);
+  font-weight: 750;
+  text-decoration: none;
+
+  app-icon {
+    transition: transform var(--ses-duration) var(--ses-ease);
+  }
+
+  &:hover {
+    color: var(--ses-primary-strong);
+
+    app-icon {
+      transform: translateX(3px);
+    }
+  }
+}
+
+.notice {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--ses-border);
+  border-left: 3px solid var(--ses-accent);
+  border-radius: var(--ses-radius-md);
+  background: var(--ses-surface-2);
+  color: var(--ses-text);
+  font-size: var(--ses-text-sm);
+
+  app-icon {
+    flex: 0 0 auto;
+    margin-top: 0.15rem;
+    color: var(--ses-accent-strong);
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+}
+
+.notice--info {
+  border-left-color: var(--ses-primary);
+
+  app-icon {
+    color: var(--ses-primary);
+  }
+}
+
+.rule {
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--ses-border);
+}
+
+.sr-only {
+  @include mix.visually-hidden;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--ses-radius-sm);
+  background: var(--ses-accent);
+  color: var(--ses-accent-contrast);
+  font-weight: 750;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 150ms ease;
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Angular Material alignment with the school design system
+// ---------------------------------------------------------------------------
+.mat-mdc-dialog-surface {
+  background: var(--ses-surface) !important;
+  color: var(--ses-text) !important;
+}
+
+.mat-drawer-container,
+.mat-drawer-content {
+  background: var(--ses-bg);
+  color: var(--ses-text);
+}
+
+.mat-drawer {
+  background: var(--ses-surface);
+  color: var(--ses-text);
+}
+
+.mat-mdc-menu-panel {
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-md) !important;
+  box-shadow: var(--ses-shadow-md) !important;
+}
+
+.mat-mdc-menu-item {
+  min-height: 2.75rem !important;
+  color: var(--ses-text);
+  font-family: var(--ses-font-sans) !important;
+  font-size: var(--ses-text-sm) !important;
+}
+
+.mat-mdc-menu-item .mat-icon,
+.mat-mdc-menu-item app-icon {
+  color: var(--ses-muted);
+}
+
+// The Material drawer wraps projected content in an inner scroll container.
+// Make the admin sidebar a flex column so its footer stays anchored.
+.admin-drawer .mat-drawer-inner-container {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.ses-mobile-nav-panel .mat-mdc-dialog-surface {
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.ses-mobile-nav-panel {
+  max-width: 100vw !important;
+}
+
+// Motion preferences
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
