@@ -92,11 +92,15 @@ export class AuthController {
 
   private setRefreshTokenCookie(response: Response, refreshToken: string): void {
     const maxAgeSeconds = Number(this.config.get('REFRESH_TOKEN_EXPIRES_DAYS')) * 24 * 60 * 60;
+    const isProduction = this.config.get('NODE_ENV') === 'production';
 
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: this.config.get('NODE_ENV') === 'production',
-      sameSite: 'lax',
+      secure: isProduction,
+      // Production serves the Angular app from Firebase Hosting and the API
+      // from a separate origin, so the refresh cookie must be SameSite=None
+      // to travel with credentialed cross-site requests.
+      sameSite: isProduction ? 'none' : 'lax',
       path: '/auth',
       maxAge: maxAgeSeconds,
     });
