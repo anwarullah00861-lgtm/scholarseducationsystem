@@ -28,6 +28,26 @@ export const SITE = {
   socialLinks: [] as readonly SocialLink[],
   /** Configurable WhatsApp group invite link for parents and community. */
   whatsappGroupUrl: 'https://chat.whatsapp.com/LldOefPuzIN2blpQXYVu20',
+  /** Official school registration confirmed by the school. */
+  registration: {
+    authority: 'PSRA',
+    number: '310885008423',
+  },
+  /** School leadership confirmed by the school. */
+  leadership: {
+    managingDirector: 'Mufti Abidullah Qureshi',
+    principal: 'Mawlana Suleman sb',
+  },
+  /** School facts confirmed by the school (October 2026). */
+  facts: {
+    floor: 'First floor',
+    totalRooms: 13,
+    teachingStaff: 13,
+    nonTeachingStaff: 3,
+    studentStrength: 395,
+    /** The school is not co-educational. */
+    genderPolicy: 'Boys only (not co-educational)',
+  },
 } as const;
 
 export const PRIMARY_NAV: readonly NavItem[] = [

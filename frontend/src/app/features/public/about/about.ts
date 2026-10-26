@@ -49,6 +49,14 @@ export class About {
 
   protected readonly facts = [
     { label: 'Location', value: 'Miran Shah, Khyber Pakhtunkhwa' },
+    { label: `${SITE.registration.authority} Reg. No.`, value: SITE.registration.number },
+    { label: 'Managing Director', value: SITE.leadership.managingDirector },
+    { label: 'Principal', value: SITE.leadership.principal },
+    { label: 'Students', value: `${SITE.facts.studentStrength} enrolled` },
+    { label: 'Teaching staff', value: `${SITE.facts.teachingStaff} teachers` },
+    { label: 'Non-teaching staff', value: `${SITE.facts.nonTeachingStaff} staff` },
+    { label: 'Campus', value: `${SITE.facts.floor} · ${SITE.facts.totalRooms} rooms` },
+    { label: 'Enrolment', value: SITE.facts.genderPolicy },
     { label: 'Class levels', value: 'PG to Class 8' },
     { label: 'Assessment', value: 'Midterm and Final examinations' },
     { label: 'Academic year', value: SITE.academicYear },
