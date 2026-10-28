@@ -72,3 +72,108 @@
   justify-content: center;
   margin-top: 0.5rem;
 }
+
+.submitted-card__hint {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--ses-muted);
+  font-size: var(--ses-text-xs, 0.78rem);
+  line-height: 1.6;
+}
+
+/* ── A4 print copy of the filled application ─────────────── */
+
+.print-sheet {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  .print-sheet {
+    display: block;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 15mm;
+    color: #111;
+    background: #fff;
+    font-family: var(--ses-font-sans);
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  .print-sheet__head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #111;
+    margin-bottom: 1.1rem;
+  }
+
+  .print-sheet__head h1 {
+    margin: 0;
+    font-size: 17pt;
+    line-height: 1.2;
+  }
+
+  .print-sheet__head p {
+    margin: 0.2rem 0 0;
+    font-size: 9.5pt;
+  }
+
+  .print-sheet__meta {
+    text-align: right;
+    font-size: 9.5pt;
+  }
+
+  .print-sheet__meta strong {
+    font-size: 12pt;
+  }
+
+  .print-sheet__meta p {
+    margin: 0.2rem 0 0;
+  }
+
+  .print-sheet__table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .print-sheet__table th,
+  .print-sheet__table td {
+    padding: 0.5rem 0.6rem;
+    border: 1px solid #999;
+    text-align: left;
+    vertical-align: top;
+    font-size: 10pt;
+  }
+
+  .print-sheet__table th {
+    width: 18%;
+    background: #f1f1f1;
+    font-weight: 700;
+  }
+
+  .print-sheet__table td {
+    width: 32%;
+  }
+
+  .print-sheet__footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+
+  .print-sheet__footer div {
+    width: 40%;
+    padding-top: 0.4rem;
+    border-top: 1px solid #333;
+    font-size: 9.5pt;
+    text-align: center;
+  }
+}

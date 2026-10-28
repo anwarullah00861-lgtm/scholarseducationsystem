@@ -7,7 +7,7 @@
 
 <section class="section">
   <div class="container">
-    <div class="submitted-card">
+    <div class="submitted-card no-print">
       <span class="submitted-card__icon"><app-icon name="circle-check" [size]="28" /></span>
 
       <h2>Thank you for applying.</h2>
@@ -24,8 +24,21 @@
         </div>
       }
 
+      @if (application()) {
+        <p class="submitted-card__hint">
+          Print your filled application to bring it to the school, or choose “Save as PDF” in the
+          print dialog for a digital copy.
+        </p>
+      }
+
       <div class="submitted-card__actions">
-        <a class="btn btn--accent" routerLink="/admissions">
+        @if (application()) {
+          <button type="button" class="btn btn--accent" (click)="print()">
+            <app-icon name="printer" [size]="16" />
+            Print application copy
+          </button>
+        }
+        <a class="btn btn--outline" routerLink="/admissions">
           Back to admissions
           <app-icon name="arrow-right" [size]="16" />
         </a>
@@ -34,3 +47,87 @@
     </div>
   </div>
 </section>
+
+@if (application(); as app) {
+  <article class="print-sheet">
+    <header class="print-sheet__head">
+      <div>
+        <h1>{{ site.name }}</h1>
+        <p>{{ site.location }}</p>
+        <p>{{ site.registration.authority }} Reg. No. {{ site.registration.number }}</p>
+      </div>
+      <div class="print-sheet__meta">
+        <strong>Admission application</strong>
+        <p>Reference: {{ app.id }}</p>
+        <p>Submitted: {{ formatDate(app.createdAt) }}</p>
+        <p>Status: {{ statusLabel(app.status) }}</p>
+      </div>
+    </header>
+
+    <table class="print-sheet__table">
+      <tbody>
+        <tr>
+          <th>Application type</th>
+          <td>{{ templateLabel(app.template) }}</td>
+          <th>Class applied for</th>
+          <td>{{ classLabel(app.appliedClass) }}</td>
+        </tr>
+        <tr>
+          <th>Student name</th>
+          <td>{{ app.studentFullName }}</td>
+          <th>Gender</th>
+          <td>{{ genderLabel(app.gender) }}</td>
+        </tr>
+        <tr>
+          <th>Father / guardian</th>
+          <td>{{ app.fatherFullName }}</td>
+          <th>Father CNIC</th>
+          <td>{{ app.fatherCNIC }}</td>
+        </tr>
+        <tr>
+          <th>Date of birth</th>
+          <td>{{ formatDate(app.dateOfBirth) }}</td>
+          <th>In words</th>
+          <td>{{ app.dateOfBirthInWords }}</td>
+        </tr>
+        <tr>
+          <th>Father occupation</th>
+          <td>{{ app.fatherOccupation }}</td>
+          <th>Nationality</th>
+          <td>{{ app.nationality }}</td>
+        </tr>
+        <tr>
+          <th>Domicile</th>
+          <td>{{ app.domicile }}</td>
+          <th>Primary contact</th>
+          <td>{{ app.primaryContact }}</td>
+        </tr>
+        <tr>
+          <th>Alternate contact</th>
+          <td>{{ app.alternateContact || '—' }}</td>
+          <th>Previous class</th>
+          <td>{{ app.previousClass || '—' }}</td>
+        </tr>
+        <tr>
+          <th>Previous school</th>
+          <td colspan="3">{{ app.previousSchoolName || '—' }}</td>
+        </tr>
+        @if (app.leavingDate) {
+          <tr>
+            <th>Leaving date</th>
+            <td colspan="3">{{ formatDate(app.leavingDate) }}</td>
+          </tr>
+        }
+        <tr>
+          <th>Residential address</th>
+          <td colspan="3">{{ app.residentialAddress }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <footer class="print-sheet__footer">
+      <div>Student / parent signature</div>
+      <div>Office use — received by</div>
+    </footer>
+  </article>
+}

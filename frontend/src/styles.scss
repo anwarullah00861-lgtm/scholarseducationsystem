@@ -647,3 +647,24 @@ main:focus {
     scroll-behavior: auto !important;
   }
 }
+
+// Print output: hide site chrome so only the printable content is shown.
+@media print {
+  app-public-header,
+  app-public-footer,
+  app-page-hero,
+  .no-print,
+  .admin-drawer,
+  .admin-topbar,
+  .preview-banner {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .admin-main {
+    padding: 0 !important;
+  }
+}

@@ -196,6 +196,12 @@ export class AdmissionForm {
       next: (application) => {
         this.submitting.set(false);
         this.submitted.set(true);
+        // Keep the submitted record so the success page can print an A4 copy.
+        try {
+          sessionStorage.setItem('ses.lastAdmissionApplication', JSON.stringify(application));
+        } catch {
+          // Storage may be unavailable; the reference ID is still displayed.
+        }
         this.router.navigate(['/admissions/apply/success'], {
           queryParams: { id: application.id },
         });
