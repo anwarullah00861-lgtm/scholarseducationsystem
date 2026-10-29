@@ -1,0 +1,172 @@
+<div class="form-stage">
+  <div class="print-toolbar no-print">
+    <div class="print-toolbar__copy">
+      <p class="print-toolbar__eyebrow">Scholars Education System — Miran Shah</p>
+      <h1>Official admission form</h1>
+      <p class="print-toolbar__hint">
+        Prints on a single A4 portrait page. For a PDF file, choose “Save as PDF” as the destination
+        in the print dialog.
+      </p>
+    </div>
+    <div class="print-toolbar__actions">
+      <button type="button" class="btn btn--accent" (click)="print()">
+        <app-icon name="printer" [size]="16" />
+        Print Admission Form
+      </button>
+      <button type="button" class="btn btn--outline" (click)="download()">
+        <app-icon name="download" [size]="16" />
+        Download Admission Form
+      </button>
+    </div>
+  </div>
+
+  <article class="a4" aria-label="Scholars Education System admission application form">
+    <div class="a4__frame">
+      <div class="a4__watermark" aria-hidden="true">
+        <img src="assets/images/school-logo.jpeg" alt="" />
+      </div>
+
+      <div class="a4__content">
+        <header class="head">
+          <img
+            class="head__logo"
+            src="assets/images/school-logo.jpeg"
+            alt="Scholars Education System logo"
+          />
+          <div class="head__titles">
+            <h2 class="head__name">Scholars Education System</h2>
+            <p class="head__place">— Miran Shah —</p>
+            <span class="head__badge">Application Form</span>
+          </div>
+          <div class="photo-box"><span>Passport size Photo</span></div>
+        </header>
+
+        <div class="rows">
+          <div class="row">
+            <span class="row__label">From:</span>
+            <span class="row__box"></span>
+          </div>
+          <div class="row">
+            <span class="row__label">Admission Required For:</span>
+            <span class="row__box"></span>
+          </div>
+        </div>
+
+        <section class="block">
+          <h3 class="block__bar">Personal Data:</h3>
+          <div class="rows">
+            <div class="row">
+              <span class="row__label">Student Name (in capital letters):</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Father Name (in capital letters):</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Father CNIC No:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Date of Birth:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Date of Birth in Words:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Gender:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Father&#39;s Occupation:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Domicile:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Nationality:</span>
+              <span class="row__box"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3 class="block__bar">Residential Address:</h3>
+          <div class="rows">
+            <div class="row">
+              <span class="row__box row__box--lg"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Contact Number:</span>
+              <span class="row__box"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3 class="block__bar">Previous Education:</h3>
+          <div class="rows">
+            <div class="row">
+              <span class="row__label">Previous Class:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Name of School:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__label">Date of Leaving School:</span>
+              <span class="row__box"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="block">
+          <h3 class="block__bar">FOR OFFICE USE ONLY</h3>
+          <div class="rows">
+            <div class="row">
+              <span class="row__label">Office Remarks:</span>
+              <span class="row__box"></span>
+            </div>
+            <div class="row">
+              <span class="row__box"></span>
+            </div>
+          </div>
+        </section>
+
+        <footer class="foot">
+          <div class="sigs">
+            <div class="sig">
+              <span class="sig__line"></span>
+              <span class="sig__label">Parent&#39;s / Guardian&#39;s Signature</span>
+            </div>
+            <div class="sig">
+              <span class="sig__line"></span>
+              <span class="sig__label">Admission Office Signature</span>
+            </div>
+            <div class="sig">
+              <span class="sig__line"></span>
+              <span class="sig__label">Principal Signature</span>
+            </div>
+          </div>
+
+          <div class="foot__date">
+            <span class="foot__date-label">Date:</span>
+            <span class="foot__date-box"></span>
+          </div>
+
+          <div class="docs">
+            <span class="docs__label">Documents Attached:</span>
+            <span class="check"><span class="check__box"></span> Father&#39;s CNIC</span>
+            <span class="check"><span class="check__box"></span> Domicile</span>
+            <span class="check"><span class="check__box"></span> S.L.C</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</div>

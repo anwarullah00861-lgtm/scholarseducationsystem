@@ -280,3 +280,54 @@
     top: 8rem;
   }
 }
+
+/* ── Printable paper form CTA ─────────────────────────────── */
+
+.paper-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px dashed var(--ses-border-strong);
+  border-radius: var(--ses-radius-lg);
+  background: var(--ses-surface);
+}
+
+.paper-cta__copy {
+  display: flex;
+  max-width: 46rem;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.paper-cta__icon {
+  display: inline-flex;
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ses-radius-full);
+  background: var(--ses-accent-soft);
+  color: var(--ses-accent-strong);
+}
+
+.paper-cta h2 {
+  margin: 0 0 0.3rem;
+  font-size: var(--ses-text-lg);
+}
+
+.paper-cta p {
+  margin: 0;
+  color: var(--ses-muted);
+  font-size: var(--ses-text-sm);
+  line-height: 1.65;
+}
+
+.paper-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

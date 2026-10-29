@@ -35,6 +35,7 @@ describe('application routes', () => {
       'admissions',
       'admissions/apply',
       'admissions/apply/success',
+      'admissions/form',
       'resources',
       'iqbal-series',
       'media',

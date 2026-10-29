@@ -25,6 +25,41 @@
   </div>
 </section>
 
+<section class="section section--tight no-print">
+  <div class="container">
+    <div class="paper-cta">
+      <div class="paper-cta__copy">
+        <span class="paper-cta__icon"><app-icon name="printer" [size]="20" /></span>
+        <div>
+          <h2>Prefer a paper form?</h2>
+          <p>
+            Print the official A4 admission form, fill it in by hand and bring it to the school
+            office — or save it as a PDF on your device.
+          </p>
+        </div>
+      </div>
+      <div class="paper-cta__actions">
+        <a
+          class="btn btn--outline"
+          [routerLink]="['/admissions/form']"
+          [queryParams]="{ action: 'print' }"
+        >
+          <app-icon name="printer" [size]="16" />
+          Print Admission Form
+        </a>
+        <a
+          class="btn btn--outline"
+          [routerLink]="['/admissions/form']"
+          [queryParams]="{ action: 'download' }"
+        >
+          <app-icon name="download" [size]="16" />
+          Download Admission Form
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container process">
     <app-section-heading

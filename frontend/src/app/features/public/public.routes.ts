@@ -35,6 +35,14 @@ export const PUBLIC_ROUTES: Routes = [
       ),
   },
   {
+    path: 'admissions/form',
+    title: 'Admission Form · Scholars Education System',
+    loadComponent: () =>
+      import('./admissions/admission-print-form/admission-print-form').then(
+        (module) => module.AdmissionPrintForm,
+      ),
+  },
+  {
     path: 'resources',
     title: 'Resource library · Scholars Education System',
     loadComponent: () => import('./resources/resources').then((module) => module.Resources),

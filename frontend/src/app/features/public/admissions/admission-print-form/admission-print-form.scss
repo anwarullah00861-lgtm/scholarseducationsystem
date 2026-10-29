@@ -1,0 +1,379 @@
+/* ── Printable A4 admission form ─────────────────────────────
+   The sheet uses a fixed local palette (dark green / light
+   green / white / gold) so it renders identically in light
+   theme, dark theme and on paper. All sheet dimensions are
+   absolute (mm) so the print output is a single A4 page. */
+
+.form-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: clamp(1rem, 3vw, 2.5rem) clamp(0.5rem, 2vw, 1.5rem) clamp(2rem, 5vw, 3.5rem);
+}
+
+/* ── Screen toolbar (never printed) ───────────────────────── */
+
+.print-toolbar {
+  display: flex;
+  width: min(210mm, 100%);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  border: 1px solid var(--ses-border);
+  border-radius: var(--ses-radius-lg);
+  background: var(--ses-surface);
+  box-shadow: var(--ses-shadow-sm);
+}
+
+.print-toolbar__eyebrow {
+  margin: 0 0 0.2rem;
+  color: var(--ses-accent-strong);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.print-toolbar h1 {
+  margin: 0;
+  font-size: var(--ses-text-lg);
+}
+
+.print-toolbar__hint {
+  max-width: 34rem;
+  margin: 0.35rem 0 0;
+  color: var(--ses-muted);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.print-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+/* ── A4 sheet (screen) ────────────────────────────────────── */
+
+.a4 {
+  box-sizing: border-box;
+  width: 210mm;
+  height: 297mm;
+  flex: 0 0 auto;
+  border: 2mm solid #0e4a3e;
+  background: #fff;
+  color: #14231d;
+  box-shadow: var(--ses-shadow-lg);
+
+  // Fixed document palette — must not follow the theme.
+  --form-dark: #0e4a3e;
+  --form-darker: #08362d;
+  --form-soft: #e4efe9;
+  --form-gold: #b8861b;
+  --form-ink: #14231d;
+  --form-muted: #44554e;
+
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+@media screen and (max-width: 860px) {
+  .a4 {
+    zoom: 0.66;
+  }
+}
+
+.a4__frame {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 0.5mm solid var(--form-gold);
+  padding: 6mm 7mm 5mm;
+  // Safety net: guarantees the sheet can never spill onto a second page.
+  // The layout below is sized to fit, so nothing is cut off in practice.
+  overflow: hidden;
+}
+
+.a4__watermark {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+
+  img {
+    width: 120mm;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.07;
+  }
+}
+
+.a4__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 2.2mm;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+
+.head {
+  display: grid;
+  grid-template-columns: 32mm 1fr 32mm;
+  align-items: center;
+  gap: 3mm;
+}
+
+.head__logo {
+  width: 30mm;
+  height: 30mm;
+  object-fit: contain;
+}
+
+.head__titles {
+  text-align: center;
+}
+
+.head__name {
+  margin: 0;
+  color: var(--form-darker);
+  font-family: var(--ses-font-display);
+  font-size: 19pt;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.head__place {
+  position: relative;
+  display: inline-block;
+  margin: 1.4mm 0 2mm;
+  padding: 0 11mm;
+  color: var(--form-dark);
+  font-family: var(--ses-font-display);
+  font-size: 13pt;
+  font-weight: 600;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 55%;
+    width: 8mm;
+    height: 0.7mm;
+    background: var(--form-gold);
+    content: '';
+  }
+
+  &::before {
+    left: 0;
+  }
+
+  &::after {
+    right: 0;
+  }
+}
+
+.head__badge {
+  display: inline-block;
+  padding: 1.7mm 8mm;
+  border-radius: 3mm;
+  background: var(--form-darker);
+  color: #f8fbf8;
+  font-family: var(--ses-font-display);
+  font-size: 12.5pt;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.photo-box {
+  display: grid;
+  box-sizing: border-box;
+  width: 32mm;
+  height: 38mm;
+  place-items: center;
+  border: 0.5mm solid var(--form-dark);
+  background: #f4f4f1;
+  text-align: center;
+
+  span {
+    padding: 0 2mm;
+    color: var(--form-muted);
+    font-size: 7.6pt;
+    line-height: 1.35;
+  }
+}
+
+/* ── Field rows ───────────────────────────────────────────── */
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+
+.row__label {
+  flex: 0 0 auto;
+  width: 60mm;
+  color: var(--form-ink);
+  font-size: 9.3pt;
+  font-weight: 600;
+}
+
+.row__box {
+  flex: 1;
+  height: 7.6mm;
+  border: 0.35mm solid var(--form-dark);
+  background: #fff;
+}
+
+.row__box--lg {
+  height: 17mm;
+}
+
+/* ── Section blocks ───────────────────────────────────────── */
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6mm;
+}
+
+.block__bar {
+  margin: 0;
+  padding: 1.4mm 3.5mm;
+  border-left: 1.4mm solid var(--form-gold);
+  background: var(--form-soft);
+  color: var(--form-darker);
+  font-size: 10pt;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+/* ── Footer: signatures, date, documents ──────────────────── */
+
+.foot {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2mm;
+  // Sits at the bottom of the sheet when the content above is shorter.
+  margin-top: auto;
+}
+
+.sigs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7mm;
+  padding-top: 5mm;
+}
+
+.sig {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4mm;
+}
+
+.sig__line {
+  width: 100%;
+  border-top: 0.4mm solid var(--form-ink);
+}
+
+.sig__label {
+  color: var(--form-ink);
+  font-size: 8.6pt;
+  font-weight: 700;
+  text-align: center;
+}
+
+.foot__date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3mm;
+}
+
+.foot__date-label {
+  color: var(--form-ink);
+  font-size: 9.3pt;
+  font-weight: 700;
+}
+
+.foot__date-box {
+  width: 55mm;
+  height: 7mm;
+  border: 0.35mm solid var(--form-dark);
+  background: #fff;
+}
+
+.docs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4mm 8mm;
+  padding-top: 1mm;
+  color: var(--form-ink);
+  font-size: 9.3pt;
+  font-weight: 600;
+}
+
+.docs__label {
+  font-weight: 800;
+}
+
+.check {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.2mm;
+}
+
+.check__box {
+  width: 4.4mm;
+  height: 4.4mm;
+  border: 0.4mm solid var(--form-dark);
+  background: #fff;
+}
+
+/* ── Print: one A4 portrait page, site chrome hidden ──────── */
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  .form-stage {
+    display: block;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+  }
+
+  .print-toolbar {
+    display: none !important;
+  }
+
+  .a4 {
+    margin: 0;
+    box-shadow: none;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .a4__frame {
+    overflow: hidden;
+  }
+}
