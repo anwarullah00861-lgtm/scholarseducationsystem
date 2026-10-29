@@ -83,7 +83,7 @@ describe('Auth integration', () => {
     await prisma.refreshToken.deleteMany({
       where: { user: { email: testUser.email } },
     });
-    await prisma.user.delete({ where: { email: testUser.email } });
+    await prisma.user.deleteMany({ where: { email: testUser.email } });
 
     await prisma.user.create({
       data: {
@@ -103,7 +103,7 @@ describe('Auth integration', () => {
     await prisma.refreshToken.deleteMany({
       where: { user: { email: testUser.email } },
     });
-    await prisma.user.delete({ where: { email: testUser.email } });
+    await prisma.user.deleteMany({ where: { email: testUser.email } });
     await prisma.$disconnect();
     await app.close();
   });
@@ -182,6 +182,11 @@ describe('Auth integration', () => {
       return;
     }
 
+    const previousRefreshCookie = refreshTokenCookie;
+    // JWTs carry second-level `iat`, so wait out the current second to make
+    // the rotated token provably different from the one issued at login.
+    await new Promise((resolve) => setTimeout(resolve, 1100));
+
     const response = await request()
       .post('/auth/refresh')
       .set('Cookie', [`refreshToken=${refreshTokenCookie}`]);
@@ -198,6 +203,7 @@ describe('Auth integration', () => {
       : setCookie;
     expect(newCookie).toBeDefined();
     refreshTokenCookie = newCookie!.split(';')[0].split('=')[1];
+    expect(refreshTokenCookie).not.toBe(previousRefreshCookie);
   });
 
   it('POST /auth/refresh rejects a missing cookie', async () => {

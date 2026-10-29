@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.angular/
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Environment files (never commit secrets)
+.env
+.env.*
+!.env.example
+
+# Firebase Hosting cache
+.firebase/
+
+# Uploads (runtime data, stored on the server)
+backend/uploads/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
