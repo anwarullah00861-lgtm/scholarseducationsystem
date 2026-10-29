@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -75,9 +74,9 @@ export class AdminLayout {
   }).format(new Date());
 
   constructor() {
-    effect(() => {
-      this.sidenavOpened.set(!this.compactViewport());
-    });
+    // Note: an effect that wrote sidenavOpened here created an infinite loop
+    // with mat-sidenav's [opened]/(openedChange) two-way binding. The initial
+    // value (open on desktop) and the (openedChange) handler are sufficient.
   }
 
   protected toggleSidebar(): void {

@@ -2,6 +2,7 @@ import { HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse } from '@angular/co
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, switchMap, throwError } from 'rxjs';
+import { API_BASE_URL } from '../config/api.config';
 import { AuthService } from './auth.service';
 
 /**
@@ -17,7 +18,17 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) 
   const router = inject(Router);
   let refreshing = false;
 
-  return next(req).pipe(
+  // Attach the Bearer token to API requests (not static assets).
+  const token = auth.token();
+  const isApiRequest = req.url.startsWith(API_BASE_URL) || req.url.startsWith('/api');
+  let authReq = req;
+  if (token && isApiRequest) {
+    authReq = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` },
+    });
+  }
+
+  return next(authReq).pipe(
     catchError((error) => {
       if (error?.status !== 401 || refreshing) {
         return throwError(() => error);
@@ -33,7 +44,11 @@ export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) 
       return auth.refresh().pipe(
         switchMap(() => {
           refreshing = false;
-          return next(req);
+          const newToken = auth.token();
+          const retried = newToken
+            ? req.clone({ setHeaders: { Authorization: `Bearer ${newToken}` } })
+            : req;
+          return next(retried);
         }),
         catchError((refreshError) => {
           refreshing = false;

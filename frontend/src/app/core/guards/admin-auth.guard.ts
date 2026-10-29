@@ -8,13 +8,14 @@ import { AuthService } from '../services/auth.service';
  * The backend enforces real authorization on every admin API call; this guard
  * only prevents the shell from being browsed without signing in.
  */
-export const adminAuthGuard: CanActivateFn = (route) => {
+export const adminAuthGuard: CanActivateFn = (_route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
 
-  const childPath = route.firstChild?.routeConfig?.path ?? route.routeConfig?.path;
-
-  if (childPath === 'login') {
+  // The login route is a grandchild (admin → '' → login), so checking
+  // route.firstChild never matched 'login' and caused an infinite redirect
+  // loop. Inspect the target URL instead.
+  if (state.url.startsWith('/admin/login')) {
     return true;
   }
 

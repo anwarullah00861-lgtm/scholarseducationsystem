@@ -23,6 +23,9 @@ backend/uploads/
 # Logs
 *.log
 
+# Playwright CLI artifacts
+.playwright-cli/
+
 # OS files
 .DS_Store
 Thumbs.db
